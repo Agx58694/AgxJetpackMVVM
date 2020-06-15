@@ -2,14 +2,15 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.github.dcendents.android-maven'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 8
-        versionName "1.0.8"
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
@@ -58,8 +59,8 @@ dependencies {
     api "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
 
     //navigation
-    api "androidx.navigation:navigation-fragment-ktx:2.3.0-beta01"
-    api "androidx.navigation:navigation-ui-ktx:2.3.0-beta01"
+    api "androidx.navigation:navigation-fragment-ktx:2.3.0-rc01"
+    api "androidx.navigation:navigation-ui-ktx:2.3.0-rc01"
     //retrofit
     api "com.squareup.retrofit2:retrofit:2.7.1"
     api "com.squareup.retrofit2:converter-gson:2.7.1"
@@ -69,6 +70,6 @@ dependencies {
     //https://github.com/li-xiaojun/XPopup
     api 'com.lxj:xpopup:1.9.0'
     //https://github.com/airbnb/lottie-android
-    api "com.airbnb.android:lottie:3.4.0"
+    api "com.airbnb.android:lottie:3.4.1"
 
 }

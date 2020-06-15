@@ -1,4 +1,3 @@
-
 -optimizationpasses 5
 
 -dontusemixedcaseclassnames
@@ -52,13 +51,6 @@
 -dontwarn com.google.android.material.**
 -dontnote com.google.android.material.**
 -dontwarn androidx.**
-################glide###############
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep public class * extends com.bumptech.glide.module.AppGlideModule
--keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
-  **[] $VALUES;
-  public *;
-}
 
 ################retrofit###############
 -dontwarn retrofit2.**
@@ -68,6 +60,3 @@
 ################RxPermissions#################
 -keep class com.tbruyelle.rxpermissions2.** { *; }
 -keep interface com.tbruyelle.rxpermissions2.** { *; }
-
-
-

@@ -14,7 +14,7 @@
 
 -optimizations !code/simplification/artithmetic,!field/*,!class/merging/*
 
--keep class me.hgj.jetpackmvvm.**{*;}
+-keep class com.agx.jetpackmvvm.**{*;}
 
 ################common###############
 

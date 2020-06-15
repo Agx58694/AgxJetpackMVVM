@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.agx.agxjetpackmvvm.ui.fragment.main.MainFragment"
+        android:name="com.agx.agxjetpackmvvmtest.ui.fragment.main.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_homeFragment"
@@ -24,10 +24,10 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.agx.agxjetpackmvvm.ui.fragment.home.HomeFragment"
+        android:name="com.agx.agxjetpackmvvmtest.ui.fragment.home.HomeFragment"
         android:label="HomeFragment"/>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.agx.agxjetpackmvvm.ui.fragment.login.LoginFragment"
+        android:name="com.agx.agxjetpackmvvmtest.ui.fragment.login.LoginFragment"
         android:label="LoginFragment" />
 </navigation>

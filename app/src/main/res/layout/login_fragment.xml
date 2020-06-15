@@ -8,11 +8,11 @@
 
         <variable
             name="viewModel"
-            type="com.agx.agxjetpackmvvm.ui.fragment.login.LoginViewModel" />
+            type="com.agx.agxjetpackmvvmtest.ui.fragment.login.LoginViewModel" />
 
         <variable
             name="clickProxy"
-            type="com.agx.agxjetpackmvvm.ui.fragment.login.LoginFragment.ClickProxy" />
+            type="com.agx.agxjetpackmvvmtest.ui.fragment.login.LoginFragment.ClickProxy" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

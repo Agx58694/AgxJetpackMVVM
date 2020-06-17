@@ -8,3 +8,5 @@
 
 #### 使用说明
 
+implementation 'com.gitee.Agx58694:AgxJetpackMvvm:1.0.0-alpha'
+

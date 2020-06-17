@@ -39,8 +39,8 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
         initView(savedInstanceState)
         onVisible()
         registerDefUIChange()
-        initListener()
         initData()
+        initListener()
         NetworkStateManager.instance.mNetworkStateCallback.observe(this, Observer {
             onNetworkStateChanged(it)
         })

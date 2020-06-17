@@ -47,6 +47,7 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
         onVisible()
         registorDefUIChange()
         initData()
+        initListener()
     }
 
     /**
@@ -58,6 +59,10 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
      * 初始化view
      */
     abstract fun initView(savedInstanceState: Bundle?)
+
+    /**
+     * 初始化监听器*/
+    open fun initListener() {}
 
     /**
      * 懒加载

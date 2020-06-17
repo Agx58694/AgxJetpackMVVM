@@ -51,8 +51,6 @@ dependencies {
     api 'androidx.lifecycle:lifecycle-runtime:2.2.0'
     api 'androidx.lifecycle:lifecycle-common-java8:2.2.0'
     api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    //管理协程生命周期，页面销毁，自动关闭协程
-    implementation 'com.ljx.rxlife:rxlife-coroutine:2.0.0'
     // or Koin for Android Architecture ViewModel
     api 'org.koin:koin-androidx-viewmodel:2.1.4'
     // liveData

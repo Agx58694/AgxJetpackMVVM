@@ -38,7 +38,8 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
         mViewModel = initVM()
         initView(savedInstanceState)
         onVisible()
-        registorDefUIChange()
+        registerDefUIChange()
+        initListener()
         initData()
         NetworkStateManager.instance.mNetworkStateCallback.observe(this, Observer {
             onNetworkStateChanged(it)
@@ -54,6 +55,10 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
      * 初始化view
      */
     abstract fun initView(savedInstanceState: Bundle?)
+
+    /**
+     * 初始化监听器*/
+    open fun initListener() {}
 
     /**
      * 懒加载
@@ -95,7 +100,7 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
     /**
      * 注册 UI 事件
      */
-    private fun registorDefUIChange() {
+    private fun registerDefUIChange() {
         mViewModel.loadingChange.showDialog.observe(viewLifecycleOwner, Observer {
             showLoading()
         })

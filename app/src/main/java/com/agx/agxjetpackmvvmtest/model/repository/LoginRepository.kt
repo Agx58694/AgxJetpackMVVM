@@ -1,6 +1,6 @@
 package com.agx.agxjetpackmvvmtest.model.repository
 
-import com.agx.agxjetpackmvvm.ext.util.unpacking
+import com.agx.jetpackmvvm.ext.util.unpacking
 import com.agx.agxjetpackmvvmtest.http.ApiService
 
 class LoginRepository(private val apiService: ApiService) {

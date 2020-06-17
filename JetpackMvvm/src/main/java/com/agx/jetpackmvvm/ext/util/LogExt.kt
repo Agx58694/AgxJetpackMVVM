@@ -3,7 +3,7 @@ package com.agx.jetpackmvvm.ext.util
 import android.util.Log
 import androidx.databinding.library.BuildConfig
 
-const val TAG = "JetpackMvvm"
+const val TAG = "AgxJetpackMvvm"
 
 var showLog = BuildConfig.DEBUG
 

@@ -92,7 +92,7 @@ dependencies {
     //glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     //屏幕适配
-    implementation 'me.jessyan:autosize:1.2.0'
+    implementation 'me.jessyan:autosize:1.2.1'
     //util
     implementation 'com.blankj:utilcodex:1.26.0'
     //验证码输入框

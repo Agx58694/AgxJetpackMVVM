@@ -30,7 +30,7 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(layoutId(),container,false)
+        return inflater.inflate(layoutId(), container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,7 +49,7 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
     /**
      * 网络变化监听 子类重写
      */
-    open fun onNetworkStateChanged(netState: NetState) { }
+    open fun onNetworkStateChanged(netState: NetState) {}
 
     /**
      * 初始化view
@@ -79,12 +79,20 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
      * 是否需要懒加载
      */
     private fun onVisible() {
-        if (lifecycle.currentState == Lifecycle.State.STARTED && isFirst) {
-            lazyLoadData()
-            isFirst = false
-            createObserver()
+        if (lifecycle.currentState == Lifecycle.State.STARTED) {
+            if (isFirst) {
+                lazyLoadData()
+                isFirst = false
+                createObserver()
+            } else {
+                onVisibleResume()
+            }
         }
     }
+
+    /**
+     * 重新展示（非第一次）*/
+    open fun onVisibleResume() {}
 
     /**
      * Fragment执行onCreate后触发的方法

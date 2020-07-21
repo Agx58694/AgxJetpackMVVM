@@ -33,7 +33,8 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     private fun coroutineExceptionHandler(onError: (String) -> Unit): CoroutineContext{
         return CoroutineExceptionHandler { _, exception ->
             //处理子协程错误
-            onError.invoke(exception.formatHttpThrowable(getApplication()))
+            onErrorMsg.value = exception.formatHttpThrowable(getApplication())
+            onError.invoke(onErrorMsg.value)
         }
     }
 

@@ -10,4 +10,5 @@
     <string name="service_forbidden" translatable="false">服务不可用</string>
     <string name="json_error" translatable="false">服务繁忙,请稍后再试（jsonError）</string>
     <string name="eof_error" translatable="false">服务繁忙,请稍后再试（efo_error）</string>
+    <string name="system_error" translatable="false">系统异常，正在发送错误日志</string>
 </resources>

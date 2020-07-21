@@ -6,9 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import kotlinx.coroutines.*
 import com.agx.jetpackmvvm.callback.livedata.StringLiveData
 import com.agx.jetpackmvvm.ext.throwable.formatHttpThrowable
-import com.agx.jetpackmvvm.ext.throwable.formatSystemThrowable
 import com.agx.jetpackmvvm.state.SingleLiveEvent
-import retrofit2.HttpException
 import kotlin.coroutines.CoroutineContext
 
 open class BaseViewModel(application: Application) : AndroidViewModel(application), CoroutineScope {
@@ -29,20 +27,13 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + rootJob + CoroutineExceptionHandler { _, exception ->
             //处理父协程错误
-            onErrorMsg.value = when(exception){
-                is HttpException -> exception.formatHttpThrowable(getApplication())
-                else -> exception.formatSystemThrowable()
-            }
+            onErrorMsg.value = exception.formatHttpThrowable(getApplication())
         }
 
     private fun coroutineExceptionHandler(onError: (String) -> Unit): CoroutineContext{
         return CoroutineExceptionHandler { _, exception ->
             //处理子协程错误
-            onErrorMsg.value = when(exception){
-                is HttpException -> exception.formatHttpThrowable(getApplication())
-                else -> exception.formatSystemThrowable()
-            }
-            onError.invoke(onErrorMsg.value)
+            onError.invoke(exception.formatHttpThrowable(getApplication()))
         }
     }
 
@@ -53,6 +44,8 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         }) {
             loadingChange.showDialog.call()
             block()
+            //这里不加延时的话block里面没有耗时操作会导致等待框销毁不了，todo 需要优化
+            delay(1)
             loadingChange.dismissDialog.call()
         }
     }

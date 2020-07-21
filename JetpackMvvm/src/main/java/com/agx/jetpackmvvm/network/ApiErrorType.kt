@@ -14,7 +14,8 @@ enum class ApiErrorType(val code: Int, @param: StringRes private val messageId: 
     NOT_LOGIN(401, R.string.not_login),
     SERVICE_FORBIDDEN(403, R.string.service_forbidden),
     JSON_ERROR(1001, R.string.json_error),
-    EOF_ERROR(1002, R.string.eof_error);
+    EOF_ERROR(1002, R.string.eof_error),
+    SYSTEM_ERROR(-1001, R.string.system_error);
 
     fun getApiErrorModel(context: Context): ApiErrorModel {
         return ApiErrorModel(code, context.getString(messageId))

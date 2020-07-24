@@ -38,6 +38,10 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    /**
+     * 有等待框的协程任务
+     * @param block 需要执行的任务
+     * @param onError 失败方法*/
     fun needLoadingLaunch(block: suspend CoroutineScope.() -> Unit,onError: (String) -> Unit = {}): Job{
         return launch(coroutineExceptionHandler{
             onError(it)
@@ -46,6 +50,18 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
             loadingChange.showDialog.call()
             block()
             loadingChange.dismissDialog.call()
+        }
+    }
+
+    /**
+     * 普通协程任务
+     * @param block 需要执行的任务
+     * @param onError 失败方法*/
+    fun launch(block: suspend CoroutineScope.() -> Unit,onError: (String) -> Unit = {}): Job{
+        return launch(coroutineExceptionHandler{
+            onError(it)
+        }) {
+            block()
         }
     }
 

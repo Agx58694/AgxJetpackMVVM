@@ -45,8 +45,6 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         }) {
             loadingChange.showDialog.call()
             block()
-            //这里不加延时的话block里面没有耗时操作会导致等待框销毁不了，todo 需要优化
-            delay(1)
             loadingChange.dismissDialog.call()
         }
     }

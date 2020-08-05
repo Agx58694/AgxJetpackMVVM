@@ -97,4 +97,8 @@ dependencies {
     implementation 'com.blankj:utilcodex:1.26.0'
     //验证码输入框
     implementation 'com.justkiddingbaby:vercodeedittext:1.1.0'
+    //https://github.com/li-xiaojun/XPopup
+    implementation 'com.lxj:xpopup:2.0.8'
+    //https://github.com/airbnb/lottie-android
+    implementation "com.airbnb.android:lottie:3.4.1"
 }

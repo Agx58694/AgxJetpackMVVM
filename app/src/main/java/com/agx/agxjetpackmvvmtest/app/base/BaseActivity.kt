@@ -33,8 +33,8 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmDb
      * 打开等待框
      */
     override fun showLoading() {
-        popupView = XPopup.Builder(this).asLoading()
-            .bindLayout(R.layout.dialog_loading)
+        popupView = XPopup.Builder(this)
+            .asLoading("加载中",R.layout.dialog_loading)
             .show()
     }
 

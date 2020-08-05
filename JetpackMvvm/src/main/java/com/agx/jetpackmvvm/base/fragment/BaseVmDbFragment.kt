@@ -1,7 +1,6 @@
 package com.agx.jetpackmvvm.base.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,7 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
     //是否第一次加载
     private var isFirst: Boolean = true
 
-    //该类负责绑定视图数据的Viewmodel
+    //该类负责绑定视图数据的ViewModel
     lateinit var mViewModel: VM
 
     //该类绑定的ViewDataBinding
@@ -47,7 +46,7 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
         mViewModel = initVM()
         initView(savedInstanceState)
         onVisible()
-        registorDefUIChange()
+        registerDefUIChange()
         initData()
         initListener()
     }
@@ -86,23 +85,15 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
      * 是否需要懒加载
      */
     private fun onVisible() {
-        if (lifecycle.currentState == Lifecycle.State.STARTED) {
-            if (isFirst) {
-                lazyLoadData()
-                isFirst = false
-                createObserver()
-                NetworkStateManager.instance.mNetworkStateCallback.observe(this, Observer {
-                    onNetworkStateChanged(it)
-                })
-            } else {
-                onVisibleResume()
-            }
+        if (lifecycle.currentState == Lifecycle.State.STARTED && isFirst) {
+            lazyLoadData()
+            isFirst = false
+            createObserver()
+            NetworkStateManager.instance.mNetworkStateCallback.observe(this, Observer {
+                onNetworkStateChanged(it)
+            })
         }
     }
-
-    /**
-     * 重新展示（非第一次）*/
-    open fun onVisibleResume() {}
 
     /**
      * Fragment执行onCreate后触发的方法
@@ -117,7 +108,7 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
     /**
      * 注册 UI 事件
      */
-    private fun registorDefUIChange() {
+    open fun registerDefUIChange() {
         mViewModel.loadingChange.showDialog.observe(viewLifecycleOwner, Observer {
             showLoading()
         })

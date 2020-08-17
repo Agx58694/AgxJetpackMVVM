@@ -22,7 +22,7 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
     lateinit var mViewModel: VM
 
     //该类绑定的ViewDataBinding
-    lateinit var mDatabind: DB
+    lateinit var mDataBinding: DB
 
     /**
      * 当前Fragment绑定的视图布局
@@ -36,9 +36,9 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        mDatabind = DataBindingUtil.inflate(inflater, layoutId(), container, false)
-        mDatabind.lifecycleOwner = this
-        return mDatabind.root
+        mDataBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
+        mDataBinding.lifecycleOwner = this
+        return mDataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,7 +89,7 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
             lazyLoadData()
             isFirst = false
             createObserver()
-            NetworkStateManager.instance.mNetworkStateCallback.observe(this, Observer {
+            NetworkStateManager.instance.mNetworkStateCallback.observe(viewLifecycleOwner, Observer {
                 onNetworkStateChanged(it)
             })
         }

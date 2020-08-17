@@ -1,6 +1,5 @@
 package com.agx.jetpackmvvm.ext.util
 
-import android.util.Log
 import com.google.gson.Gson
 import java.util.regex.Pattern
 

@@ -3,8 +3,8 @@ package com.agx.jetpackmvvm.base.viewmodel
 import android.app.Application
 import androidx.annotation.CallSuper
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
-import com.agx.jetpackmvvm.callback.livedata.StringLiveData
 import com.agx.jetpackmvvm.ext.throwable.formatHttpThrowable
 import com.agx.jetpackmvvm.state.SingleLiveEvent
 import kotlin.coroutines.CoroutineContext
@@ -12,7 +12,7 @@ import kotlin.coroutines.CoroutineContext
 open class BaseViewModel(application: Application) : AndroidViewModel(application), CoroutineScope {
 
     //错误信息
-    var onErrorMsg = StringLiveData()
+    var onErrorMsg = MutableLiveData<String>()
     private var rootJob = SupervisorJob()
     val loadingChange: UiLoadingChange by lazy { UiLoadingChange() }
 
@@ -34,7 +34,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         return CoroutineExceptionHandler { _, exception ->
             //处理子协程错误
             onErrorMsg.value = exception.formatHttpThrowable(getApplication())
-            onError.invoke(onErrorMsg.value)
+            onError.invoke(onErrorMsg.value!!)
         }
     }
 

@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import com.agx.jetpackmvvm.callback.livedata.UnPeekLiveData
+import androidx.lifecycle.MutableLiveData
 
 /**
  * 作者　: hegaojian
@@ -15,7 +15,7 @@ import com.agx.jetpackmvvm.callback.livedata.UnPeekLiveData
  */
 class NetworkStateManager private constructor() : DefaultLifecycleObserver {
 
-    val mNetworkStateCallback = UnPeekLiveData<NetState>()
+    val mNetworkStateCallback = MutableLiveData<NetState>()
 
 
     private var mNetworkStateReceive: NetworkStateReceive? = null

@@ -2,12 +2,10 @@ package com.agx.agxjetpackmvvmtest.ui.fragment.login
 
 import android.app.Application
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import com.agx.agxjetpackmvvmtest.R
 import com.agx.agxjetpackmvvmtest.model.repository.LoginRepository
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
-import com.agx.jetpackmvvm.callback.livedata.BooleanLiveData
-import com.agx.jetpackmvvm.callback.livedata.IntLiveData
-import com.agx.jetpackmvvm.callback.livedata.StringLiveData
 import com.agx.jetpackmvvm.ext.util.isPhone
 
 class LoginViewModel(application: Application, private val loginRepository: LoginRepository) :
@@ -17,40 +15,40 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
         LoginEnum.PHONE_LOGIN
 
     //用户名
-    var userPhone = StringLiveData()
+    var userPhone = MutableLiveData<String>()
 
     //密码
-    var password = StringLiveData()
+    var password = MutableLiveData<String>()
 
     //确定按钮文字
-    var buttonLoginText = StringLiveData()
+    var buttonLoginText = MutableLiveData<String>()
 
     //登录模式文字
-    var textLoginModeText = StringLiveData()
+    var textLoginModeText = MutableLiveData<String>()
 
     //是否显示明文密码
-    var isShowTextPwd = BooleanLiveData()
+    var isShowTextPwd = MutableLiveData<Boolean>()
 
     //是否显示image_clean_password
-    var isShowImgCleanPwd = BooleanLiveData()
+    var isShowImgCleanPwd = MutableLiveData<Boolean>()
 
     //是否显示imageIdCardBack
-    var isShowPassword = BooleanLiveData()
+    var isShowPassword = MutableLiveData<Boolean>()
 
     //是否显示editPassword
-    var isShowEditPassword = BooleanLiveData()
+    var isShowEditPassword = MutableLiveData<Boolean>()
 
     //是否显示viewPassword
-    var isShowViewPassword = BooleanLiveData()
+    var isShowViewPassword = MutableLiveData<Boolean>()
 
     //是否显示textForgetPassword
-    var isShowTextForgetPassword = BooleanLiveData()
+    var isShowTextForgetPassword = MutableLiveData<Boolean>()
 
     //是否显示checkPassword
-    var isShowCheckPassword = BooleanLiveData()
+    var isShowCheckPassword = MutableLiveData<Boolean>()
 
     //登录按钮背景
-    var buttonLoginBackground = IntLiveData(R.drawable.btn_login_rectangle_lightgray)
+    var buttonLoginBackground = MutableLiveData<Int>(R.drawable.btn_login_rectangle_lightgray)
 
     //是否显示或隐藏image_clean_password图标
     fun isShowPasswordImg() {
@@ -59,12 +57,12 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
             isShowImgCleanPwd.value = false
             return
         }
-        isShowImgCleanPwd.value = password.value.isNotEmpty()
+        isShowImgCleanPwd.value = password.value?.isNotEmpty()
     }
 
     //checkPassword点击事件
     fun clickCheckPassword() {
-        isShowTextPwd.value = !isShowTextPwd.value
+        isShowTextPwd.value = !(isShowTextPwd.value?: true)
     }
 
     //textLoginMode点击事件,切换登录模式
@@ -82,7 +80,7 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
     }
 
     fun checkInputData() {
-        if (userPhone.value.isPhone() && password.value.length >= 8) {
+        if (userPhone.value?.isPhone() == true && password.value?.length?: 0 >= 8) {
             buttonLoginBackground.value = R.drawable.btn_login_rectangle_lightskyblue
             return
         }

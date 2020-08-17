@@ -20,8 +20,8 @@ android {
             abiFilters 'armeabi', 'armeabi-v7a', 'x86'
         }
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
     buildTypes {
         debug {

@@ -16,8 +16,8 @@ class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>() {
     override fun initVM(): LoginViewModel = getViewModel()
 
     override fun initView(savedInstanceState: Bundle?) {
-        mDatabind.viewModel = mViewModel
-        mDatabind.clickProxy = ClickProxy()
+        mDataBinding.viewModel = mViewModel
+        mDataBinding.clickProxy = ClickProxy()
     }
 
     override fun lazyLoadData() {

@@ -3,8 +3,7 @@ package com.agx.jetpackmvvm.ext.throwable
 import android.content.Context
 import com.google.gson.JsonSyntaxException
 import com.google.gson.stream.MalformedJsonException
-import com.agx.jetpackmvvm.AppConfigure.APP_MODE
-import com.agx.jetpackmvvm.AppEnum
+import com.agx.jetpackmvvm.BuildConfig
 import com.agx.jetpackmvvm.ext.util.ifTrue
 import com.agx.jetpackmvvm.network.ApiErrorModel
 import com.agx.jetpackmvvm.network.ApiErrorType
@@ -32,7 +31,7 @@ private fun Throwable.formatSystemThrowable(sendMessage: Boolean): ApiErrorType 
 /**
  * http错误格式化扩展函数*/
 fun Throwable.formatHttpThrowable(context: Context): String {
-    (APP_MODE == AppEnum.DEBUG).ifTrue {
+    BuildConfig.DEBUG.ifTrue {
         this.message.apply {
             //todo 把原始错误信息发送到服务器
         }
@@ -64,7 +63,7 @@ fun Throwable.formatHttpThrowable(context: Context): String {
         is JsonSyntaxException -> JSON_ERROR
         is MalformedJsonException -> JSON_ERROR
         is EOFException -> EOF_ERROR
-        else -> this.formatSystemThrowable(APP_MODE == AppEnum.DEBUG)
+        else -> this.formatSystemThrowable(BuildConfig.DEBUG)
     }
     return "${apiErrorType.code}  ${apiErrorType.getApiErrorModel(context).message}"
 }

@@ -1,5 +1,7 @@
-package com.agx.jetpackmvvm.ext.util
+package com.agx.agxjetpackmvvmtest.extend
 
+import com.agx.jetpackmvvm.ext.util.ifFalse
+import com.agx.jetpackmvvm.ext.util.ifTrue
 import com.agx.jetpackmvvm.network.bean.ResponseWrapper
 
 

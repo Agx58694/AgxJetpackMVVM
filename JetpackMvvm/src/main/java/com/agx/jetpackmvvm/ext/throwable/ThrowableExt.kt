@@ -15,15 +15,19 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 /**
+ * 系统原始错误*/
+private var onAppThrowableListener: (String) -> Unit = {}
+
+fun setOnAppThrowableListener(it: (String) -> Unit){
+    onAppThrowableListener = it
+}
+
+/**
  * 系统错误格式化扩展函数
  * 将异常处理成用户可识别
  * 把异常发送到服务器记录*/
-private fun Throwable.formatSystemThrowable(sendMessage: Boolean): ApiErrorType {
-    if(sendMessage){
-        this.message.apply {
-            //todo 把原始错误信息发送到服务器
-        }
-    }
+private fun Throwable.formatSystemThrowable(): ApiErrorType {
+    onAppThrowableListener.invoke(this.message.toString())
     //未预见的系统错误，只能统一格式化，该函数主要目的为上传原始错误到服务器记录
     return SYSTEM_ERROR
 }
@@ -31,11 +35,6 @@ private fun Throwable.formatSystemThrowable(sendMessage: Boolean): ApiErrorType 
 /**
  * http错误格式化扩展函数*/
 fun Throwable.formatHttpThrowable(context: Context): String {
-    BuildConfig.DEBUG.ifTrue {
-        this.message.apply {
-            //todo 把原始错误信息发送到服务器
-        }
-    }
     if (this is HttpException) {
         val apiErrorModel: ApiErrorModel = when (this.code()) {
             INTERNAL_SERVER_ERROR.code ->
@@ -63,7 +62,7 @@ fun Throwable.formatHttpThrowable(context: Context): String {
         is JsonSyntaxException -> JSON_ERROR
         is MalformedJsonException -> JSON_ERROR
         is EOFException -> EOF_ERROR
-        else -> this.formatSystemThrowable(BuildConfig.DEBUG)
+        else -> this.formatSystemThrowable()
     }
     return "${apiErrorType.code}  ${apiErrorType.getApiErrorModel(context).message}"
 }

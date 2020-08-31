@@ -1,19 +1,17 @@
+# 指定代码的压缩级别 0 - 7(指定代码进行迭代优化的次数，在Android里面默认是5，这条指令也只有在可以优化时起作用。)
 -optimizationpasses 5
-
--dontusemixedcaseclassnames
-
+# 指定不去忽略非公共的库类(不跳过library中的非public的类)
 -dontskipnonpubliclibraryclasses
-
+# 指定不去忽略包可见的库类的成员
 -dontskipnonpubliclibraryclassmembers
-
+#不进行优化，建议使用此选项，
+-dontoptimize
+# 不进行预校验,Android不需要,可加快混淆速度。
 -dontpreverify
 
--verbose
 -printmapping priguardMapping.txt
 
 -optimizations !code/simplification/artithmetic,!field/*,!class/merging/*
-
--keep class com.agx.jetpackmvvm.**{*;}
 
 ################common###############
 

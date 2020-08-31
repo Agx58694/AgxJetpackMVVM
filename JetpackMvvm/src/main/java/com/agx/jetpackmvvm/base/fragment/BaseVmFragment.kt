@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.agx.jetpackmvvm.network.manager.NetState
 import com.agx.jetpackmvvm.network.manager.NetworkStateManager
@@ -41,7 +40,7 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
         registerDefUIChange()
         initData()
         initListener()
-        NetworkStateManager.instance.mNetworkStateCallback.observe(viewLifecycleOwner, Observer {
+        NetworkStateManager.instance.mNetworkStateCallback.observe(viewLifecycleOwner, {
             onNetworkStateChanged(it)
         })
     }
@@ -109,10 +108,10 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
      * 注册 UI 事件
      */
     private fun registerDefUIChange() {
-        mViewModel.loadingChange.showDialog.observe(viewLifecycleOwner, Observer {
+        mViewModel.loadingChange.showDialog.observe(viewLifecycleOwner, {
             showLoading()
         })
-        mViewModel.loadingChange.dismissDialog.observe(viewLifecycleOwner, Observer {
+        mViewModel.loadingChange.dismissDialog.observe(viewLifecycleOwner, {
             dismissLoading()
         })
     }

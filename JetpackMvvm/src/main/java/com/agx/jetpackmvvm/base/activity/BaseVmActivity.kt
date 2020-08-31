@@ -2,7 +2,6 @@ package com.agx.jetpackmvvm.base.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.agx.jetpackmvvm.network.manager.NetState
 import com.agx.jetpackmvvm.network.manager.NetworkStateManager
@@ -29,7 +28,7 @@ abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
         initView(savedInstanceState)
         createObserver()
         lifecycle.addObserver(NetworkStateManager.instance)
-        NetworkStateManager.instance.mNetworkStateCallback.observe(this, Observer {
+        NetworkStateManager.instance.mNetworkStateCallback.observe(this, {
             onNetworkStateChanged(it)
         })
     }
@@ -49,11 +48,11 @@ abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
      */
     private fun registerUiChange() {
         //显示弹窗
-        mViewModel.loadingChange.showDialog.observe(this, Observer {
+        mViewModel.loadingChange.showDialog.observe(this, {
             showLoading()
         })
         //关闭弹窗
-        mViewModel.loadingChange.dismissDialog.observe(this, Observer {
+        mViewModel.loadingChange.dismissDialog.observe(this, {
             dismissLoading()
         })
     }

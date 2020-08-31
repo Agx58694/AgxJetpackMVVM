@@ -89,7 +89,7 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
             lazyLoadData()
             isFirst = false
             createObserver()
-            NetworkStateManager.instance.mNetworkStateCallback.observe(viewLifecycleOwner, Observer {
+            NetworkStateManager.instance.mNetworkStateCallback.observe(viewLifecycleOwner, {
                 onNetworkStateChanged(it)
             })
         }
@@ -109,10 +109,10 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
      * 注册 UI 事件
      */
     open fun registerDefUIChange() {
-        mViewModel.loadingChange.showDialog.observe(viewLifecycleOwner, Observer {
+        mViewModel.loadingChange.showDialog.observe(viewLifecycleOwner, {
             showLoading()
         })
-        mViewModel.loadingChange.dismissDialog.observe(viewLifecycleOwner, Observer {
+        mViewModel.loadingChange.dismissDialog.observe(viewLifecycleOwner, {
             dismissLoading()
         })
     }

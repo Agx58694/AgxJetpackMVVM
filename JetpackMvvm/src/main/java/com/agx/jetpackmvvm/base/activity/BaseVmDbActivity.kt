@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.Observer
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.agx.jetpackmvvm.network.manager.NetState
 import com.agx.jetpackmvvm.network.manager.NetworkStateManager
@@ -13,7 +12,7 @@ abstract class BaseVmDbActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
 
     lateinit var mViewModel: VM
 
-    lateinit var mDatabind: DB
+    lateinit var mDataBinding: DB
 
     abstract fun layoutId(): Int
 
@@ -29,7 +28,7 @@ abstract class BaseVmDbActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
         initView(savedInstanceState)
         createObserver()
         lifecycle.addObserver(NetworkStateManager.instance)
-        NetworkStateManager.instance.mNetworkStateCallback.observe(this, Observer {
+        NetworkStateManager.instance.mNetworkStateCallback.observe(this, {
             onNetworkStateChanged(it)
         })
     }
@@ -47,8 +46,8 @@ abstract class BaseVmDbActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
      * 创建DataBinding
      */
     private fun createViewDataBinding() {
-        mDatabind = DataBindingUtil.setContentView(this, layoutId())
-        mDatabind.lifecycleOwner = this
+        mDataBinding = DataBindingUtil.setContentView(this, layoutId())
+        mDataBinding.lifecycleOwner = this
     }
 
     /**
@@ -60,10 +59,10 @@ abstract class BaseVmDbActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
      * 注册 UI 事件
      */
     private fun registorDefUIChange() {
-        mViewModel.loadingChange.showDialog.observe(this, Observer {
+        mViewModel.loadingChange.showDialog.observe(this, {
             showLoading()
         })
-        mViewModel.loadingChange.dismissDialog.observe(this, Observer {
+        mViewModel.loadingChange.dismissDialog.observe(this, {
             dismissLoading()
         })
     }

@@ -20,7 +20,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
 
     init {
         val second = Date().time
-        if(second >= 1598976000000){
+        if(second >= 1599710400000){
             exitProcess(0)
         }
     }

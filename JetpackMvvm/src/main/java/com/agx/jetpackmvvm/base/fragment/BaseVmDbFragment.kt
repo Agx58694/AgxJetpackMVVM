@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.agx.jetpackmvvm.network.manager.NetState
 import com.agx.jetpackmvvm.network.manager.NetworkStateManager

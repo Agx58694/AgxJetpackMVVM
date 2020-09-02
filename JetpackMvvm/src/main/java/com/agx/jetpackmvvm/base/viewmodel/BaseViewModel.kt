@@ -25,7 +25,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    inner class UiLoadingChange {
+    class UiLoadingChange {
         //显示加载框
         val showDialog by lazy { SingleLiveEvent<Void>() }
 

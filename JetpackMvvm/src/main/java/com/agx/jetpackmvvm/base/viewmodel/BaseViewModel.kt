@@ -7,9 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
 import com.agx.jetpackmvvm.ext.throwable.formatHttpThrowable
 import com.agx.jetpackmvvm.state.SingleLiveEvent
-import java.util.*
 import kotlin.coroutines.CoroutineContext
-import kotlin.system.exitProcess
 
 open class BaseViewModel(application: Application) : AndroidViewModel(application), CoroutineScope {
 
@@ -17,13 +15,6 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     var onErrorMsg = MutableLiveData<String>()
     private var rootJob = SupervisorJob()
     val loadingChange: UiLoadingChange by lazy { UiLoadingChange() }
-
-    init {
-        val second = Date().time
-        if(second >= 1599710400000){
-            exitProcess(0)
-        }
-    }
 
     class UiLoadingChange {
         //显示加载框

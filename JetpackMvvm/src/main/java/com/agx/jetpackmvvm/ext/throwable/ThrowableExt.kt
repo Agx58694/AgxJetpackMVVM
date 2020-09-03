@@ -3,8 +3,6 @@ package com.agx.jetpackmvvm.ext.throwable
 import android.content.Context
 import com.google.gson.JsonSyntaxException
 import com.google.gson.stream.MalformedJsonException
-import com.agx.jetpackmvvm.BuildConfig
-import com.agx.jetpackmvvm.ext.util.ifTrue
 import com.agx.jetpackmvvm.network.ApiErrorModel
 import com.agx.jetpackmvvm.network.ApiErrorType
 import com.agx.jetpackmvvm.network.ApiErrorType.*

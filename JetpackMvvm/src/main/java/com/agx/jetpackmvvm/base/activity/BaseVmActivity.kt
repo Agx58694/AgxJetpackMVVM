@@ -7,6 +7,7 @@ import com.agx.jetpackmvvm.network.manager.NetState
 import com.agx.jetpackmvvm.network.manager.NetworkStateManager
 
 abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
+    var loadingContent: String = "请求网络中..."
 
     lateinit var mViewModel: VM
 
@@ -49,7 +50,7 @@ abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
     private fun registerUiChange() {
         //显示弹窗
         mViewModel.loadingChange.showDialog.observe(this, {
-            showLoading()
+            showLoading(loadingContent)
         })
         //关闭弹窗
         mViewModel.loadingChange.dismissDialog.observe(this, {

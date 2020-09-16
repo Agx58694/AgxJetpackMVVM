@@ -15,8 +15,22 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun initVM(): MainViewModel = getViewModel()
 
+    init {
+        loadingContent = "自定义消息"
+    }
+
     override fun initView(savedInstanceState: Bundle?) {
 
+    }
+
+    override fun createObserver() {
+        mViewModel.onErrorMsg.observe(this,{
+            showErrorMessage(it)
+        })
+        mViewModel.dataResult.observe(this,{ result ->
+            result.onSuccess { showSuccessMessage(it) }
+            result.onFailure { showErrorMessage(it.message.toString()) }
+        })
     }
 
     override fun onNetworkStateChanged(netState: NetState) {

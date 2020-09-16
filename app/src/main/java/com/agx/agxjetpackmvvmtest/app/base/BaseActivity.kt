@@ -3,20 +3,17 @@ package com.agx.agxjetpackmvvmtest.app.base
 import android.content.res.Resources
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.lifecycleScope
 import com.agx.agxjetpackmvvmtest.R
 import com.agx.jetpackmvvm.base.activity.BaseVmDbActivity
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import me.jessyan.autosize.AutoSizeCompat
 
-/**
- * 时间　: 2019/12/21
- * 作者　: hegaojian
- * 描述　: 你项目中的Activity基类，在这里实现显示弹窗，吐司，还有加入自己的需求操作 ，如果不想用Databind，请继承
- * BaseVmActivity例如
- * abstract class BaseActivity<VM : BaseViewModel> : BaseVmActivity<VM>() {
- */
 abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmDbActivity<VM, DB>() {
     private var popupView: BasePopupView? = null
 
@@ -32,9 +29,9 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmDb
     /**
      * 打开等待框
      */
-    override fun showLoading() {
+    override fun showLoading(message: String) {
         popupView = XPopup.Builder(this)
-            .asLoading("加载中",R.layout.dialog_loading)
+            .asLoading(message, R.layout.dialog_loading)
             .show()
     }
 
@@ -43,6 +40,35 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmDb
      */
     override fun dismissLoading() {
         popupView?.dismiss()
+    }
+
+    /**
+     * 弹出错误框*/
+    fun showErrorMessage(errorMessage: String) {
+        QMUITipDialog.Builder(this)
+            .setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL)
+            .setTipWord(errorMessage)
+            .create().apply {
+                lifecycleScope.launch {
+                    delay(1500)
+                    dismiss()
+                }
+            }.show()
+    }
+
+    /**
+     * 弹出成功框*/
+    fun showSuccessMessage(successMessage: String) {
+        QMUITipDialog.Builder(this)
+            .setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS)
+            .setTipWord(successMessage)
+            .create().apply {
+                lifecycleScope.launch {
+                    delay(1500)
+                    dismiss()
+                }
+            }.show()
+
     }
 
     /**

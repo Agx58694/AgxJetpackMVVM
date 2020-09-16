@@ -101,4 +101,10 @@ dependencies {
     implementation 'com.lxj:xpopup:2.0.8'
     //https://github.com/airbnb/lottie-android
     implementation "com.airbnb.android:lottie:3.4.1"
+    // 基础依赖包，必须要依赖 https://github.com/gyf-dev/ImmersionBar
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
+    // fragment快速实现（可选）https://github.com/gyf-dev/ImmersionBar
+    implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
+    //QMUI  https://qmuiteam.com/android/get-started
+    implementation 'com.qmuiteam:qmui:2.0.0-alpha10'
 }

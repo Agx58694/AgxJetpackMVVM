@@ -9,6 +9,7 @@ import com.agx.jetpackmvvm.network.manager.NetState
 import com.agx.jetpackmvvm.network.manager.NetworkStateManager
 
 abstract class BaseVmDbActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompatActivity() {
+    var loadingContent: String = "请求网络中..."
 
     lateinit var mViewModel: VM
 
@@ -20,11 +21,15 @@ abstract class BaseVmDbActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
 
     abstract fun initView(savedInstanceState: Bundle?)
 
+    abstract fun showLoading(message: String = "请求网络中...")
+
+    abstract fun dismissLoading()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         createViewDataBinding()
         mViewModel = initVM()
-        registorDefUIChange()
+        registerUiChange()
         initView(savedInstanceState)
         createObserver()
         lifecycle.addObserver(NetworkStateManager.instance)
@@ -37,10 +42,6 @@ abstract class BaseVmDbActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
      * 网络变化监听 子类重写
      */
     open fun onNetworkStateChanged(netState: NetState) {}
-
-    abstract fun showLoading()
-
-    abstract fun dismissLoading()
 
     /**
      * 创建DataBinding
@@ -58,9 +59,9 @@ abstract class BaseVmDbActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
     /**
      * 注册 UI 事件
      */
-    private fun registorDefUIChange() {
+    private fun registerUiChange() {
         mViewModel.loadingChange.showDialog.observe(this, {
-            showLoading()
+            showLoading(loadingContent)
         })
         mViewModel.loadingChange.dismissDialog.observe(this, {
             dismissLoading()

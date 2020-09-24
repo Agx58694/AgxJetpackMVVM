@@ -22,7 +22,28 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
      */
     abstract fun layoutId(): Int
 
+    /**
+     * ViewModel*/
     abstract fun initVM(): VM
+
+    /**
+     * 初始化view
+     */
+    abstract fun initView(savedInstanceState: Bundle?)
+
+    /**
+     * 懒加载
+     */
+    abstract fun lazyLoadData()
+
+    /**
+     * 创建观察者
+     */
+    abstract fun createObserver()
+
+    abstract fun showLoading(message: String)
+
+    abstract fun dismissLoading()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,39 +56,12 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewModel = initVM()
+        initData()
+        registerDefUIChange()
         initView(savedInstanceState)
         onVisible()
-        registerDefUIChange()
-        initData()
         initListener()
-        NetworkStateManager.instance.mNetworkStateCallback.observe(viewLifecycleOwner, {
-            onNetworkStateChanged(it)
-        })
     }
-
-    /**
-     * 网络变化监听 子类重写
-     */
-    open fun onNetworkStateChanged(netState: NetState) {}
-
-    /**
-     * 初始化view
-     */
-    abstract fun initView(savedInstanceState: Bundle?)
-
-    /**
-     * 初始化监听器*/
-    open fun initListener() {}
-
-    /**
-     * 懒加载
-     */
-    abstract fun lazyLoadData()
-
-    /**
-     * 创建观察者
-     */
-    abstract fun createObserver()
 
     override fun onResume() {
         super.onResume()
@@ -83,36 +77,36 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
                 lazyLoadData()
                 isFirst = false
                 createObserver()
-            } else {
-                onVisibleResume()
+                NetworkStateManager.instance.mNetworkStateCallback.observe(viewLifecycleOwner, {
+                    onNetworkStateChanged(it)
+                })
             }
         }
     }
-
-    /**
-     * 重新展示（非第一次）*/
-    open fun onVisibleResume() {}
-
-    /**
-     * Fragment执行onCreate后触发的方法
-     */
-    open fun initData() {}
-
-
-    abstract fun showLoading()
-
-    abstract fun dismissLoading()
-
 
     /**
      * 注册 UI 事件
      */
     private fun registerDefUIChange() {
         mViewModel.loadingChange.showDialog.observe(viewLifecycleOwner, {
-            showLoading()
+            showLoading(it)
         })
         mViewModel.loadingChange.dismissDialog.observe(viewLifecycleOwner, {
             dismissLoading()
         })
     }
+
+    /**
+     * 网络变化监听 子类重写
+     */
+    open fun onNetworkStateChanged(netState: NetState) {}
+
+    /**
+     * 初始化监听器*/
+    open fun initListener() {}
+
+    /**
+     * Fragment执行onCreate后触发的方法
+     */
+    open fun initData() {}
 }

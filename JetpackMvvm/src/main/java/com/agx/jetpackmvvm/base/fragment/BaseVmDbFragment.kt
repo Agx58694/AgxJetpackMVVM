@@ -28,41 +28,14 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
      */
     abstract fun layoutId(): Int
 
-    abstract fun initVM(): VM
-
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        mDataBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
-        mDataBinding.lifecycleOwner = this
-        return mDataBinding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        mViewModel = initVM()
-        initView(savedInstanceState)
-        onVisible()
-        registerDefUIChange()
-        initData()
-        initListener()
-    }
-
     /**
-     * 网络变化监听 子类重写
-     */
-    open fun onNetworkStateChanged(netState: NetState) {}
+     * ViewModel*/
+    abstract fun initVM(): VM
 
     /**
      * 初始化view
      */
     abstract fun initView(savedInstanceState: Bundle?)
-
-    /**
-     * 初始化监听器*/
-    open fun initListener() {}
 
     /**
      * 懒加载
@@ -74,6 +47,29 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
      */
     abstract fun createObserver()
 
+    abstract fun showLoading(message: String)
+
+    abstract fun dismissLoading()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        mDataBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
+        mDataBinding.lifecycleOwner = this
+        return mDataBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mViewModel = initVM()
+        initData()
+        registerDefUIChange()
+        initView(savedInstanceState)
+        onVisible()
+        initListener()
+    }
 
     override fun onResume() {
         super.onResume()
@@ -95,24 +91,28 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
     }
 
     /**
-     * Fragment执行onCreate后触发的方法
-     */
-    open fun initData() {}
-
-    abstract fun showLoading()
-
-    abstract fun dismissLoading()
-
-
-    /**
      * 注册 UI 事件
      */
-    open fun registerDefUIChange() {
+    private fun registerDefUIChange() {
         mViewModel.loadingChange.showDialog.observe(viewLifecycleOwner, {
-            showLoading()
+            showLoading(it)
         })
         mViewModel.loadingChange.dismissDialog.observe(viewLifecycleOwner, {
             dismissLoading()
         })
     }
+
+    /**
+     * 网络变化监听 子类重写
+     */
+    open fun onNetworkStateChanged(netState: NetState) {}
+
+    /**
+     * 初始化监听器*/
+    open fun initListener() {}
+
+    /**
+     * Fragment执行onCreate后触发的方法
+     */
+    open fun initData() {}
 }

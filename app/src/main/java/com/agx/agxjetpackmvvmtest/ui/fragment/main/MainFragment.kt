@@ -1,6 +1,7 @@
 package com.agx.agxjetpackmvvmtest.ui.fragment.main
 
 import android.os.Bundle
+import android.widget.Toast
 import com.agx.agxjetpackmvvmtest.R
 import com.agx.agxjetpackmvvmtest.app.base.BaseFragment
 import com.agx.agxjetpackmvvmtest.databinding.FragmentMainBinding
@@ -17,9 +18,19 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
        button.setOnClickListener {
            nav().navigate(R.id.action_mainFragment_to_loginFragment)
        }
+        button2.setOnClickListener {
+            mViewModel.getData()
+        }
+    }
+
+    override fun createObserver() {
+        mViewModel.onErrorMsg.observe(this,{
+            Toast.makeText(context,"onError$it", Toast.LENGTH_LONG).show()
+        })
     }
 
     override fun lazyLoadData() {
+
     }
 
 }

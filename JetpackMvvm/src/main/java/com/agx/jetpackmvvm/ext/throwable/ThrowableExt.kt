@@ -1,6 +1,7 @@
 package com.agx.jetpackmvvm.ext.throwable
 
 import android.content.Context
+import com.agx.jetpackmvvm.CustomException
 import com.google.gson.JsonSyntaxException
 import com.google.gson.stream.MalformedJsonException
 import com.agx.jetpackmvvm.network.ApiErrorModel
@@ -14,27 +15,45 @@ import java.net.UnknownHostException
 
 /**
  * 系统原始错误*/
-private var onAppThrowableListener: (String) -> Unit = {}
+private var onAppThrowableListener: (Throwable) -> Unit = {}
 
-fun setOnAppThrowableListener(it: (String) -> Unit){
+/**
+ * 自定义错误格式化方法*/
+private var onFormatThrowable: (Throwable, Context) -> String = { throwable, context ->
+    formatThrowableDefault(throwable, context)
+}
+
+fun setOnAppThrowableListener(it: (Throwable) -> Unit) {
     onAppThrowableListener = it
 }
 
+fun setOnFormatThrowable(it: (Throwable, Context) -> String) {
+    onFormatThrowable = it
+}
+
 /**
- * 系统错误格式化扩展函数
- * 将异常处理成用户可识别
- * 把异常发送到服务器记录*/
+ * 系统错误格式化扩展函数，该方法只返回原始错误，
+ * @link setOnAppThrowableListener 建议拿到原始错误后做成日志保存以便异常排查*/
 private fun Throwable.formatSystemThrowable(): ApiErrorType {
-    onAppThrowableListener.invoke(this.message.toString())
+    onAppThrowableListener.invoke(this)
     //未预见的系统错误，只能统一格式化，该函数主要目的为上传原始错误到服务器记录
     return SYSTEM_ERROR
 }
 
 /**
- * http错误格式化扩展函数*/
-fun Throwable.formatHttpThrowable(context: Context): String {
-    if (this is HttpException) {
-        val apiErrorModel: ApiErrorModel = when (this.code()) {
+ * 错误格式化扩展函数*/
+fun Throwable.formatThrowable(context: Context): String {
+    return onFormatThrowable(this, context)
+}
+
+/**
+ * 如不自定义错误格式化方法，默认使用该方法处理*/
+private fun formatThrowableDefault(it: Throwable, context: Context): String {
+    if (it is CustomException) {
+        return it.message.toString()
+    }
+    if (it is HttpException) {
+        val apiErrorModel: ApiErrorModel = when (it.code()) {
             INTERNAL_SERVER_ERROR.code ->
                 INTERNAL_SERVER_ERROR.getApiErrorModel(context)
             BAD_GATEWAY.code ->
@@ -53,14 +72,14 @@ fun Throwable.formatHttpThrowable(context: Context): String {
         }
         return "${apiErrorModel.status}  ${apiErrorModel.message}"
     }
-    val apiErrorType: ApiErrorType = when (this) {
+    val apiErrorType: ApiErrorType = when (it) {
         is UnknownHostException -> NETWORK_NOT_CONNECT
         is ConnectException -> SERVICE_FORBIDDEN
         is SocketTimeoutException -> CONNECTION_TIMEOUT
         is JsonSyntaxException -> JSON_ERROR
         is MalformedJsonException -> JSON_ERROR
         is EOFException -> EOF_ERROR
-        else -> this.formatSystemThrowable()
+        else -> it.formatSystemThrowable()
     }
     return "${apiErrorType.code}  ${apiErrorType.getApiErrorModel(context).message}"
 }

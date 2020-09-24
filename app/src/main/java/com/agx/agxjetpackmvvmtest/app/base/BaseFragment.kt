@@ -50,9 +50,9 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmDb
     /**
      * 打开等待框
      */
-    override fun showLoading() {
+    override fun showLoading(message: String) {
         popupView = XPopup.Builder(context)
-            .asLoading("加载中",R.layout.dialog_loading)
+            .asLoading(message,R.layout.dialog_loading)
             .show()
     }
 

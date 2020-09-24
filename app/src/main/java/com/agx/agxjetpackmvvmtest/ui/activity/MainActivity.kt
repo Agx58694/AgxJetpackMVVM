@@ -6,6 +6,7 @@ import com.agx.agxjetpackmvvmtest.R
 import com.agx.agxjetpackmvvmtest.app.base.BaseActivity
 import com.agx.agxjetpackmvvmtest.databinding.ActivityMainBinding
 import com.agx.agxjetpackmvvmtest.ui.fragment.main.MainViewModel
+import com.agx.jetpackmvvm.ext.throwable.setOnAppThrowableListener
 import com.blankj.utilcode.util.ToastUtils
 import com.agx.jetpackmvvm.network.manager.NetState
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -20,7 +21,10 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-
+        //处理viewModel原始错误
+        setOnAppThrowableListener {
+            showErrorMessage(it.message.toString())
+        }
     }
 
     override fun createObserver() {

@@ -5,7 +5,8 @@ import androidx.annotation.CallSuper
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
-import com.agx.jetpackmvvm.ext.throwable.formatHttpThrowable
+import com.agx.jetpackmvvm.ext.throwable.formatThrowable
+import com.agx.jetpackmvvm.ext.util.ifTrue
 import com.agx.jetpackmvvm.state.SingleLiveEvent
 import kotlin.coroutines.CoroutineContext
 
@@ -18,7 +19,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
 
     class UiLoadingChange {
         //显示加载框
-        val showDialog by lazy { SingleLiveEvent<Void>() }
+        val showDialog by lazy { SingleLiveEvent<String>() }
 
         //隐藏
         val dismissDialog by lazy { SingleLiveEvent<Void>() }
@@ -27,14 +28,21 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + rootJob + CoroutineExceptionHandler { _, exception ->
             //处理父协程错误
-            onErrorMsg.value = exception.formatHttpThrowable(getApplication())
+            onErrorMsg.value = exception.formatThrowable(getApplication())
         }
 
-    private fun coroutineExceptionHandler(onError: (String) -> Unit): CoroutineContext{
+    private fun coroutineExceptionHandler(
+        isSendError: Boolean,
+        onError: (String) -> Unit
+    ): CoroutineContext {
         return CoroutineExceptionHandler { _, exception ->
-            //处理子协程错误
-            onErrorMsg.value = exception.formatHttpThrowable(getApplication())
-            onError.invoke(onErrorMsg.value!!)
+            exception.formatThrowable(getApplication()).let {
+                //处理子协程错误
+                isSendError.ifTrue {
+                    onErrorMsg.value = it
+                }
+                onError.invoke(it)
+            }
         }
     }
 
@@ -42,12 +50,16 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
      * 有等待框的协程任务
      * @param block 需要执行的任务
      * @param onError 失败方法*/
-    fun needLoadingLaunch(block: suspend CoroutineScope.() -> Unit,onError: (String) -> Unit = {}): Job{
-        return launch(coroutineExceptionHandler{
-            onError(it)
+    fun needLoadingLaunch(
+        block: suspend CoroutineScope.() -> Unit,
+        onError: ((String) -> Unit)? = null,
+        loadingTitle: String = ""
+    ): Job {
+        return launch(coroutineExceptionHandler(onError == null) {
+            onError?.invoke(it)
             loadingChange.dismissDialog.call()
         }) {
-            loadingChange.showDialog.call()
+            loadingChange.showDialog.value = loadingTitle
             block()
             loadingChange.dismissDialog.call()
         }
@@ -57,9 +69,9 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
      * 普通协程任务
      * @param block 需要执行的任务
      * @param onError 失败方法*/
-    fun launch(block: suspend CoroutineScope.() -> Unit,onError: (String) -> Unit = {}): Job{
-        return launch(coroutineExceptionHandler{
-            onError(it)
+    fun launch(block: suspend CoroutineScope.() -> Unit, onError: ((String) -> Unit)? = null): Job {
+        return launch(coroutineExceptionHandler(onError == null) {
+            onError?.invoke(it)
         }) {
             block()
         }

@@ -12,7 +12,6 @@ class MainViewModel(application: Application): BaseViewModel(application){
             //todo 代表耗时操作
             delay(2000)
             dataResult.value = Result.success("成功")
-        },
-        onError = { onErrorMsg.value = it }
+        }
     )
 }

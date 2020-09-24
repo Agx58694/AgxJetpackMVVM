@@ -94,7 +94,7 @@ dependencies {
     //屏幕适配
     implementation 'me.jessyan:autosize:1.2.1'
     //util
-    implementation 'com.blankj:utilcodex:1.26.0'
+    implementation 'com.blankj:utilcodex:1.28.4'
     //验证码输入框
     implementation 'com.justkiddingbaby:vercodeedittext:1.1.0'
     //https://github.com/li-xiaojun/XPopup

@@ -68,7 +68,9 @@ private fun formatThrowableDefault(it: Throwable, context: Context): String {
                 NOT_LOGIN.getApiErrorModel(context)
             SERVICE_FORBIDDEN.code ->
                 SERVICE_FORBIDDEN.getApiErrorModel(context)
-            else -> UNEXPECTED_ERROR.getApiErrorModel(context)
+            else -> {
+                return "${it.code()}  ${it.message}"
+            }
         }
         return "${apiErrorModel.status}  ${apiErrorModel.message}"
     }

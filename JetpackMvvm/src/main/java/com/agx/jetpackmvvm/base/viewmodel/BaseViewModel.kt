@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.annotation.CallSuper
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.agx.jetpackmvvm.configure.loadingContent
 import kotlinx.coroutines.*
 import com.agx.jetpackmvvm.ext.throwable.formatThrowable
 import com.agx.jetpackmvvm.ext.util.ifTrue
@@ -53,7 +54,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     fun needLoadingLaunch(
         block: suspend CoroutineScope.() -> Unit,
         onError: ((String) -> Unit)? = null,
-        loadingTitle: String = ""
+        loadingTitle: String = loadingContent
     ): Job {
         return launch(coroutineExceptionHandler(onError == null) {
             onError?.invoke(it)

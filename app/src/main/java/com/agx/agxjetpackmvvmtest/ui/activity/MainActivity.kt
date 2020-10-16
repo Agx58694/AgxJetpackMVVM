@@ -1,6 +1,7 @@
 package com.agx.agxjetpackmvvmtest.ui.activity
 
 import android.os.Bundle
+import androidx.lifecycle.observe
 import androidx.navigation.Navigation
 import com.agx.agxjetpackmvvmtest.R
 import com.agx.agxjetpackmvvmtest.app.base.BaseActivity
@@ -16,10 +17,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun initVM(): MainViewModel = getViewModel()
 
-    init {
-        loadingContent = "自定义消息"
-    }
-
     override fun initView(savedInstanceState: Bundle?) {
         //处理viewModel原始错误
         setOnAppThrowableListener {
@@ -28,13 +25,13 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     override fun createObserver() {
-        mViewModel.onErrorMsg.observe(this,{
+        mViewModel.onErrorMsg.observe(this) {
             showErrorMessage(it)
-        })
-        mViewModel.dataResult.observe(this,{ result ->
+        }
+        mViewModel.dataResult.observe(this) { result ->
             result.onSuccess { showSuccessMessage(it) }
             result.onFailure { showErrorMessage(it.message.toString()) }
-        })
+        }
     }
 
     override fun onNetworkStateChanged(netState: NetState) {

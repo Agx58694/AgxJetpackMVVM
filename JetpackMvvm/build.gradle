@@ -55,18 +55,20 @@ dependencies {
     // Saved state module for ViewModel
     api "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0"
 
-    // or Koin for Android Architecture ViewModel
-    api 'org.koin:koin-androidx-viewmodel:2.1.4'
+    // Koin Android ViewModel features
+    api "org.koin:koin-androidx-viewmodel:2.2.0-rc-3"
+    // Koin Android Experimental features
+    api "org.koin:koin-androidx-ext:2.2.0-rc-3"
 
     //navigation
     api "androidx.navigation:navigation-fragment-ktx:2.3.1"
     api "androidx.navigation:navigation-ui-ktx:2.3.1"
 
     //retrofit
-    api "com.squareup.retrofit2:retrofit:2.7.1"
-    api "com.squareup.retrofit2:converter-gson:2.7.1"
+    api "com.squareup.retrofit2:retrofit:2.9.0"
+    api "com.squareup.retrofit2:converter-gson:2.9.0"
     api 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
     
     //okhttp3 log
-    api 'com.squareup.okhttp3:logging-interceptor:4.3.0'
+    api 'com.squareup.okhttp3:logging-interceptor:4.9.0'
 }

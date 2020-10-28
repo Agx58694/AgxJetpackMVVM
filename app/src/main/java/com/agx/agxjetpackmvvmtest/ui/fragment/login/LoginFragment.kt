@@ -2,7 +2,6 @@ package com.agx.agxjetpackmvvmtest.ui.fragment.login
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import com.agx.agxjetpackmvvmtest.R
 import com.agx.agxjetpackmvvmtest.app.base.BaseFragment
 import com.agx.agxjetpackmvvmtest.databinding.LoginFragmentBinding
@@ -26,16 +25,16 @@ class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>() {
 
     override fun createObserver() {
         super.createObserver()
-        mViewModel.isShowTextPwd.observe(viewLifecycleOwner, Observer {
+        mViewModel.isShowTextPwd.observe(viewLifecycleOwner) {
             editPassword.setSelection(editPassword.text.length)
-        })
-        mViewModel.onErrorMsg.observe(viewLifecycleOwner, Observer {
+        }
+        mViewModel.onErrorMsg.observe(viewLifecycleOwner) {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-        })
+        }
     }
 
-    inner class ClickProxy{
-        fun buttonLoginClick(){
+    inner class ClickProxy {
+        fun buttonLoginClick() {
             mViewModel.login()
         }
     }

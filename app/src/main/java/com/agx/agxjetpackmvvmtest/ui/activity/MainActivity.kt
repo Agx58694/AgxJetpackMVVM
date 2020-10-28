@@ -1,7 +1,6 @@
 package com.agx.agxjetpackmvvmtest.ui.activity
 
 import android.os.Bundle
-import androidx.lifecycle.observe
 import androidx.navigation.Navigation
 import com.agx.agxjetpackmvvmtest.R
 import com.agx.agxjetpackmvvmtest.app.base.BaseActivity

@@ -64,9 +64,9 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewModel = initVM()
-        initData()
         registerDefUIChange()
         initView(savedInstanceState)
+        mViewModel.dataRecovery()
         onVisible()
         initListener()
     }
@@ -110,9 +110,4 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
     /**
      * 初始化监听器*/
     open fun initListener() {}
-
-    /**
-     * Fragment执行onCreate后触发的方法
-     */
-    open fun initData() {}
 }

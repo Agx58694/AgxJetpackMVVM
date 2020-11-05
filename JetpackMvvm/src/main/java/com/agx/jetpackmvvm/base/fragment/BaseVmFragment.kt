@@ -56,9 +56,9 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewModel = initVM()
-        initData()
         registerDefUIChange()
         initView(savedInstanceState)
+        mViewModel.dataRecovery()
         onVisible()
         initListener()
     }
@@ -104,9 +104,4 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
     /**
      * 初始化监听器*/
     open fun initListener() {}
-
-    /**
-     * Fragment执行onCreate后触发的方法
-     */
-    open fun initData() {}
 }

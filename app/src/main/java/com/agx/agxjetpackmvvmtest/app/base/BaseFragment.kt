@@ -35,18 +35,6 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmDb
      */
     override fun createObserver() {}
 
-
-    /**
-     * Fragment执行onViewCreated后触发的方法
-     */
-    override fun initData() {
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
     /**
      * 打开等待框
      */

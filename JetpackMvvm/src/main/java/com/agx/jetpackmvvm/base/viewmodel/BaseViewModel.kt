@@ -18,6 +18,12 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     private var rootJob = SupervisorJob()
     val loadingChange: UiLoadingChange by lazy { UiLoadingChange() }
 
+    /**
+     * 数据恢复
+     * 解决fragment重绘问题，这里写入驱动ui的数据。
+     * fragment重绘的时候会调用此方法，用于fragment重绘重新载入数据*/
+    open fun dataRecovery(){}
+
     class UiLoadingChange {
         //显示加载框
         val showDialog by lazy { SingleLiveEvent<String>() }

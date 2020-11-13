@@ -58,7 +58,6 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
         mViewModel = initVM()
         registerDefUIChange()
         initView(savedInstanceState)
-        mViewModel.dataRecovery()
         onVisible()
         initListener()
     }

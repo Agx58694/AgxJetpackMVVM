@@ -3,7 +3,6 @@ package com.agx.jetpackmvvm.base.viewmodel
 import android.app.Application
 import androidx.annotation.CallSuper
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import com.agx.jetpackmvvm.configure.loadingContent
 import kotlinx.coroutines.*
 import com.agx.jetpackmvvm.ext.throwable.formatThrowable
@@ -14,15 +13,9 @@ import kotlin.coroutines.CoroutineContext
 open class BaseViewModel(application: Application) : AndroidViewModel(application), CoroutineScope {
 
     //错误信息
-    var onErrorMsg = MutableLiveData<String>()
+    var onErrorMsg = SingleLiveEvent<String>()
     private var rootJob = SupervisorJob()
     val loadingChange: UiLoadingChange by lazy { UiLoadingChange() }
-
-    /**
-     * 数据恢复
-     * 解决fragment重绘问题，这里写入驱动ui的数据。
-     * fragment重绘的时候会调用此方法，用于fragment重绘重新载入数据*/
-    open fun dataRecovery(){}
 
     class UiLoadingChange {
         //显示加载框
@@ -81,6 +74,23 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
             onError?.invoke(it)
         }) {
             block()
+        }
+    }
+
+    /**
+     * 带加载反馈的协程任务*/
+    fun loadingBackLaunch(
+        block: suspend CoroutineScope.() -> Unit,
+        onError: ((String) -> Unit)? = null,
+        startLoading: (() -> Unit) = {},
+        finishLoading: (() -> Unit) = {}
+    ): Job {
+        return launch(coroutineExceptionHandler(onError == null) {
+            onError?.invoke(it)
+        }) {
+            startLoading.invoke()
+            block()
+            finishLoading.invoke()
         }
     }
 

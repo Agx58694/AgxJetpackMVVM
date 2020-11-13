@@ -66,7 +66,6 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
         mViewModel = initVM()
         registerDefUIChange()
         initView(savedInstanceState)
-        mViewModel.dataRecovery()
         onVisible()
         initListener()
     }

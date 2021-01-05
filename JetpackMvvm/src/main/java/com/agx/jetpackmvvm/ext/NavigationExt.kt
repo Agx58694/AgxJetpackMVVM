@@ -15,7 +15,7 @@ fun Fragment.nav(): NavController {
     return NavHostFragment.findNavController(this)
 }
 
-fun nav(view:View): NavController {
+fun nav(view: View): NavController {
     return Navigation.findNavController(view)
 }
 

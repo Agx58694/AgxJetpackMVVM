@@ -10,8 +10,8 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 
 @BindingAdapter(value = ["visibility"])
-fun View.visibility(visibilityState: Boolean){
-    if(visibilityState){
+fun View.visibility(visibilityState: Boolean) {
+    if (visibilityState) {
         this.visibility = View.VISIBLE
         return
     }
@@ -19,8 +19,8 @@ fun View.visibility(visibilityState: Boolean){
 }
 
 @BindingAdapter(value = ["isShowTextPwd"])
-fun EditText.isShowTextPwd(boolean: Boolean){
-    inputType = when(boolean) {
+fun EditText.isShowTextPwd(boolean: Boolean) {
+    inputType = when (boolean) {
         true -> EditorInfo.TYPE_CLASS_TEXT or EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
         false -> EditorInfo.TYPE_CLASS_TEXT or EditorInfo.TYPE_TEXT_VARIATION_PASSWORD
     }
@@ -41,6 +41,6 @@ fun EditText.afterTextChanged(action: () -> Unit) {
 }
 
 @BindingAdapter(value = ["setBackground"])
-fun View.setBackground(@DrawableRes id: Int){
-    background = ContextCompat.getDrawable(context,id)
+fun View.setBackground(@DrawableRes id: Int) {
+    background = ContextCompat.getDrawable(context, id)
 }

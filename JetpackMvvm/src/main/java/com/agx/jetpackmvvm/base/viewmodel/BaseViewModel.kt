@@ -4,10 +4,12 @@ import android.app.Application
 import androidx.annotation.CallSuper
 import androidx.lifecycle.AndroidViewModel
 import com.agx.jetpackmvvm.configure.loadingContent
-import kotlinx.coroutines.*
 import com.agx.jetpackmvvm.ext.throwable.formatThrowable
+import com.agx.jetpackmvvm.ext.util.ifFalse
 import com.agx.jetpackmvvm.ext.util.ifTrue
+import com.agx.jetpackmvvm.network.manager.NetworkStateManager
 import com.agx.jetpackmvvm.state.SingleLiveEvent
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 open class BaseViewModel(application: Application) : AndroidViewModel(application), CoroutineScope {
@@ -31,9 +33,9 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
             onErrorMsg.value = exception.formatThrowable(getApplication())
         }
 
-    private fun coroutineExceptionHandler(
-        isSendError: Boolean,
-        onError: (String) -> Unit
+    fun coroutineExceptionHandler(
+        isSendError: Boolean = false,
+        onError: (String) -> Unit = {}
     ): CoroutineContext {
         return CoroutineExceptionHandler { _, exception ->
             exception.formatThrowable(getApplication()).let {
@@ -78,16 +80,27 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     /**
-     * 带加载反馈的协程任务*/
+     * 带加载反馈的协程任务
+     * isNetworkJob true 代表需要网络的协程工作
+     * startLoading 反馈开始工作的函数
+     * finishLoading 反馈结束工作的函数*/
     fun loadingBackLaunch(
         block: suspend CoroutineScope.() -> Unit,
         onError: ((String) -> Unit)? = null,
+        isNetworkJob: Boolean = true,
         startLoading: (() -> Unit) = {},
         finishLoading: (() -> Unit) = {}
     ): Job {
         return launch(coroutineExceptionHandler(onError == null) {
             onError?.invoke(it)
         }) {
+            isNetworkJob.ifTrue {
+                //检查网络，没有网络则抛出异常
+                NetworkStateManager.instance.mNetworkStateCallback.value?.isSuccess?.ifFalse {
+                    //不处理，直接返回。该错误逻辑请重写onNetworkStateChanged处理
+                    return@launch
+                }
+            }
             startLoading.invoke()
             block()
             finishLoading.invoke()

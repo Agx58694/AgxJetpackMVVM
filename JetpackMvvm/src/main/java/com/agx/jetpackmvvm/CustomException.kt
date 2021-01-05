@@ -1,7 +1,5 @@
 package com.agx.jetpackmvvm
 
-import java.lang.RuntimeException
-
 open class CustomException : RuntimeException {
     constructor()
 

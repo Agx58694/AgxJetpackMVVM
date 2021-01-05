@@ -2,11 +2,11 @@ package com.agx.jetpackmvvm.ext.throwable
 
 import android.content.Context
 import com.agx.jetpackmvvm.CustomException
-import com.google.gson.JsonSyntaxException
-import com.google.gson.stream.MalformedJsonException
 import com.agx.jetpackmvvm.network.ApiErrorModel
 import com.agx.jetpackmvvm.network.ApiErrorType
 import com.agx.jetpackmvvm.network.ApiErrorType.*
+import com.google.gson.JsonSyntaxException
+import com.google.gson.stream.MalformedJsonException
 import retrofit2.HttpException
 import java.io.EOFException
 import java.net.ConnectException

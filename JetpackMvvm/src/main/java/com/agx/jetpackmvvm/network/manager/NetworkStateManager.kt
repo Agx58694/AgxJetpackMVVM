@@ -33,10 +33,11 @@ class NetworkStateManager private constructor() : DefaultLifecycleObserver {
 
     init {
         //mNetworkStateCallback值为null时或者,不为空但是没有网络时才能初始化设值有网络
-        if(mNetworkStateCallback.value==null||!mNetworkStateCallback.value!!.isSuccess){
+        if (mNetworkStateCallback.value == null || !mNetworkStateCallback.value!!.isSuccess) {
             mNetworkStateCallback.postValue(NetState(isSuccess = true))
         }
     }
+
     override fun onPause(owner: LifecycleOwner) {
         if (owner is AppCompatActivity) {
             owner.unregisterReceiver(mNetworkStateReceive)

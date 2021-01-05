@@ -5,9 +5,12 @@ import java.util.regex.Pattern
 
 fun String?.isPhone(): Boolean {
     return this?.let {
-        return Pattern.matches("^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0,5-9]))\\d{8}$",it)
-    }?:let {
-       false
+        return Pattern.matches(
+            "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0,5-9]))\\d{8}$",
+            it
+        )
+    } ?: let {
+        false
     }
 }
 
@@ -23,7 +26,7 @@ fun String?.isTel(): Boolean {
         val matcher5 = Pattern.matches("^800\\d{7,8}$", this)
         val matcher6 = Pattern.matches("^800-\\d{7,8}$", this)
         return matcher1 || matcher2 || matcher3 || matcher4 || matcher5 || matcher6
-    }?:let {
+    } ?: let {
         false
     }
 }
@@ -34,7 +37,7 @@ fun String?.isTel(): Boolean {
 fun String?.isEmail(): Boolean {
     return this?.let {
         Pattern.matches(this, "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*\$")
-    }?:let {
+    } ?: let {
         false
     }
 }
@@ -42,6 +45,6 @@ fun String?.isEmail(): Boolean {
 /**
  * 将对象转为JSON字符串
  */
-fun Any?.toJson():String{
+fun Any?.toJson(): String {
     return Gson().toJson(this)
 }

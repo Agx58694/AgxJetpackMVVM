@@ -15,7 +15,7 @@ enum class ApiErrorType(val code: Int, @param: StringRes private val messageId: 
     SERVICE_FORBIDDEN(403, R.string.service_forbidden),
     JSON_ERROR(1001, R.string.json_error),
     EOF_ERROR(1002, R.string.eof_error),
-    GATEWAY_TIMEOUT(504,R.string.gateway_timeout),
+    GATEWAY_TIMEOUT(504, R.string.gateway_timeout),
     SYSTEM_ERROR(-1001, R.string.system_error);
 
     fun getApiErrorModel(context: Context): ApiErrorModel {

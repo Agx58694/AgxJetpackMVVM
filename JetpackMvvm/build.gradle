@@ -56,13 +56,13 @@ dependencies {
     api "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0"
 
     // Koin Android ViewModel features
-    api "org.koin:koin-androidx-viewmodel:2.2.0-rc-3"
+    api "org.koin:koin-androidx-viewmodel:2.2.2"
     // Koin Android Experimental features
-    api "org.koin:koin-androidx-ext:2.2.0-rc-3"
+    api "org.koin:koin-androidx-ext:2.2.2"
 
     //navigation
-    api "androidx.navigation:navigation-fragment-ktx:2.3.1"
-    api "androidx.navigation:navigation-ui-ktx:2.3.1"
+    api "androidx.navigation:navigation-fragment-ktx:2.3.2"
+    api "androidx.navigation:navigation-ui-ktx:2.3.2"
 
     //retrofit
     api "com.squareup.retrofit2:retrofit:2.9.0"

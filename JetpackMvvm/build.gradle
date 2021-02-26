@@ -55,9 +55,6 @@ dependencies {
     // Saved state module for ViewModel
     api "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.0"
 
-    //datastore
-    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha07"
-
     // Koin Android ViewModel features
     api "org.koin:koin-androidx-viewmodel:2.2.2"
     // Koin Android Experimental features

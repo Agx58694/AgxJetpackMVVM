@@ -22,14 +22,19 @@ class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>() {
     override fun lazyLoadData() {
         mViewModel.switchLoginMode()
     }
-
+    //由于vm生命周期当前页面不一样，而且部分情况下比当前页面还要长，所以vm返回结果必须通过带生命周期的liveData发送过来
     override fun createObserver() {
         super.createObserver()
-        mViewModel.isShowTextPwd.observe(viewLifecycleOwner) {
+        mViewModel.onErrorMsg.observe(this) {
+            showErrorMessage(it)
+        }
+        mViewModel.isShowTextPwd.observe(this) {
             editPassword.setSelection(editPassword.text.length)
         }
-        mViewModel.onErrorMsg.observe(viewLifecycleOwner) {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        mViewModel.loginResult.observe(this){ it ->
+            it.onSuccess {
+                showSuccessMessage(it)
+            }
         }
     }
 

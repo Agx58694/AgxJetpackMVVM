@@ -23,14 +23,14 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         }
     }
 
-    override fun createObserver() {
-        mViewModel.onErrorMsg.observe(this,{
-            Toast.makeText(context,"onError$it", Toast.LENGTH_LONG).show()
-        })
-    }
-
     override fun lazyLoadData() {
 
+    }
+
+    override fun createObserver() {
+        mViewModel.onErrorMsg.observe(this){
+            showErrorMessage(it)
+        }
     }
 
 }

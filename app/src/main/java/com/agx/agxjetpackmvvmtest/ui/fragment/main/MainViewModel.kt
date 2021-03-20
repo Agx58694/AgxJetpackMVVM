@@ -8,6 +8,7 @@ import kotlinx.coroutines.delay
 
 class MainViewModel(application: Application): BaseViewModel(application){
     var dataResult = MutableLiveData<Result<String>>()
+    //这个例子是解决状态界面加载用的，界面加载配合startLoading和finishLoading得到数据请求加载情况
     fun getData() = loadingBackLaunch(
         block = {
             //todo 代表耗时操作

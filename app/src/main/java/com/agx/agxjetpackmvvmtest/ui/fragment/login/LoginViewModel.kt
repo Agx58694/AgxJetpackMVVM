@@ -14,6 +14,9 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
     private var loginEnum =
         LoginEnum.PHONE_LOGIN
 
+    //登陆结果
+    val loginResult = MutableLiveData<Result<String>>()
+
     //用户名
     var userPhone = MutableLiveData<String>()
 
@@ -48,7 +51,7 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
     var isShowCheckPassword = MutableLiveData<Boolean>()
 
     //登录按钮背景
-    var buttonLoginBackground = MutableLiveData<Int>(R.drawable.btn_login_rectangle_lightgray)
+    var buttonLoginBackground = MutableLiveData(R.drawable.btn_login_rectangle_lightgray)
 
     //是否显示或隐藏image_clean_password图标
     fun isShowPasswordImg() {
@@ -80,7 +83,7 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
     }
 
     fun checkInputData() {
-        if (userPhone.value?.isPhone() == true && password.value?.length?: 0 >= 8) {
+        if (userPhone.value?.isPhone() == true && (loginEnum == LoginEnum.PHONE_LOGIN || password.value?.length?: 0 >= 8)) {
             buttonLoginBackground.value = R.drawable.btn_login_rectangle_lightskyblue
             return
         }
@@ -107,12 +110,14 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
         isShowViewPassword.value = isShow
         isShowTextForgetPassword.value = isShow
         isShowEditPassword.value = isShow
+        //切换登陆模式后检查下数据
+        checkInputData()
     }
 
     fun login() = needLoadingLaunch(
         block = {
             loginRepository.getCode(
-                success = { Toast.makeText(getApplication(), it, Toast.LENGTH_SHORT).show() }
+                success = { loginResult.value = Result.success(it) }
             )
         }
     )

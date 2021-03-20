@@ -1,15 +1,14 @@
 package com.agx.agxjetpackmvvmtest.app.base
 
 import android.os.Bundle
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
-import com.agx.jetpackmvvm.base.fragment.BaseVmDbFragment
+import com.agx.jetpackmvvm.base.fragment.BaseVmFragment
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmDbFragment<VM, DB>() {
+abstract class BaseVMFragment<VM : BaseViewModel> : BaseVmFragment<VM>() {
     private var tipDialog: QMUITipDialog? = null
 
     /**

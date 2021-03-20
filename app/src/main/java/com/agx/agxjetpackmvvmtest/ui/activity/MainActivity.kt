@@ -17,7 +17,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     override fun initVM(): MainViewModel = getViewModel()
 
     override fun initView(savedInstanceState: Bundle?) {
-        //处理viewModel原始错误
+        //处理viewModel原始错误，所以viewModel的原始错误都会到这里，开发者可记录日子或上传服务器记录
         setOnAppThrowableListener {
             showErrorMessage(it.message.toString())
         }
@@ -35,6 +35,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun onNetworkStateChanged(netState: NetState) {
         super.onNetworkStateChanged(netState)
+        //网络状态变更，这里可以根据网络状态展示ui
         if (netState.isSuccess) {
             ToastUtils.showShort("有网络")
         } else {
@@ -42,6 +43,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
     }
 
+    //设置nav导航启动菜单
     override fun onSupportNavigateUp(): Boolean {
         return Navigation.findNavController(this, R.id.main_navation).navigateUp()
     }

@@ -5,10 +5,6 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
-/**
- * Created by luyao
- * on 2018/3/13 14:33
- */
 interface ApiService {
     /**
      * 获取验证码 */

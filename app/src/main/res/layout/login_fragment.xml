@@ -154,8 +154,8 @@
 
         <TextView
             android:id="@+id/textLoginMode"
-            android:layout_width="3dp"
-            android:layout_height="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:onClick="@{() -> viewModel.checkTextLoginMode()}"
             android:text="@{viewModel.textLoginModeText}"
@@ -257,7 +257,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginTop="51dp"
-            android:text="欢迎登陆货运平台"
+            android:text="欢迎登陆"
             android:textColor="@color/black"
             android:textSize="23sp"
             app:layout_constraintStart_toStartOf="parent"

@@ -67,6 +67,9 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
         registerDefUIChange()
         initView(savedInstanceState)
         onVisible()
+        if(!isFirst){
+            createObserver()
+        }
         initListener()
     }
 

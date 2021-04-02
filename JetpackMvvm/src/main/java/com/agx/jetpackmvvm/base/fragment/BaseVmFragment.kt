@@ -59,6 +59,9 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
         registerDefUIChange()
         initView(savedInstanceState)
         onVisible()
+        if(!isFirst){
+            createObserver()
+        }
         initListener()
     }
 

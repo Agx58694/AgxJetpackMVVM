@@ -6,7 +6,9 @@ import com.agx.agxjetpackmvvmtest.R
 import com.agx.agxjetpackmvvmtest.app.base.BaseDbActivity
 import com.agx.agxjetpackmvvmtest.databinding.ActivityMainBinding
 import com.agx.agxjetpackmvvmtest.ui.fragment.main.MainViewModel
+import com.agx.jetpackmvvm.configure.loadingContent
 import com.agx.jetpackmvvm.ext.setOnAppThrowableListener
+import com.agx.jetpackmvvm.ext.setOnFormatThrowable
 import com.blankj.utilcode.util.ToastUtils
 import com.agx.jetpackmvvm.network.manager.NetState
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -21,6 +23,11 @@ class MainActivity : BaseDbActivity<MainViewModel, ActivityMainBinding>() {
         setOnAppThrowableListener {
             showErrorMessage(it.message.toString())
         }
+//        setOnFormatThrowable { throwable, context ->
+//            //这里处理ViewModel使用协程方法出现的所有错误，开发者可自定义处理数据库异常和网络请求异常，并返回相应的用户可读性的错误
+//            "自定义错误格式化"
+//        }
+        loadingContent = "加载中"
     }
 
     override fun createObserver() {

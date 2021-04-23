@@ -11,7 +11,7 @@ kotlin+协程+retrofit2+navigation+koin+room+liveData
 单Activity开发模式，使用navigation导航组件
 
 #### 使用说明
-implementation 'com.gitee.Agx58694:AgxJetpackMvvm:1.1.0'
+implementation 'com.github.Agx58694:AgxJetpackMVVM:1.1.0'
 
 需继承BaseVmActivity、BaseVmDbActivity、BaseVmVbActivity并重写等待框相关逻辑
 

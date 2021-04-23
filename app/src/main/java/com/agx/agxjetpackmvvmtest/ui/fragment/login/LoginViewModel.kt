@@ -1,12 +1,11 @@
 package com.agx.agxjetpackmvvmtest.ui.fragment.login
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.agx.agxjetpackmvvmtest.R
+import com.agx.agxjetpackmvvmtest.extend.isPhone
 import com.agx.agxjetpackmvvmtest.model.repository.LoginRepository
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
-import com.agx.jetpackmvvm.ext.util.isPhone
 
 class LoginViewModel(application: Application, private val loginRepository: LoginRepository) :
     BaseViewModel(application) {
@@ -65,7 +64,7 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
 
     //checkPassword点击事件
     fun clickCheckPassword() {
-        isShowTextPwd.value = !(isShowTextPwd.value?: true)
+        isShowTextPwd.value = !(isShowTextPwd.value ?: true)
     }
 
     //textLoginMode点击事件,切换登录模式
@@ -83,7 +82,7 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
     }
 
     fun checkInputData() {
-        if (userPhone.value?.isPhone() == true && (loginEnum == LoginEnum.PHONE_LOGIN || password.value?.length?: 0 >= 8)) {
+        if (userPhone.value?.isPhone() == true && (loginEnum == LoginEnum.PHONE_LOGIN || password.value?.length ?: 0 >= 8)) {
             buttonLoginBackground.value = R.drawable.btn_login_rectangle_lightskyblue
             return
         }
@@ -111,7 +110,7 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
         isShowTextForgetPassword.value = isShow
         isShowEditPassword.value = isShow
         //切换登陆模式后检查下数据
-        checkInputData()
+        isShowPasswordImg()
     }
 
     fun login() = needLoadingLaunch(

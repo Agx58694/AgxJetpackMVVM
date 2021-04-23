@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import com.agx.agxjetpackmvvmtest.R
-import com.agx.jetpackmvvm.ext.util.ifTrue
+import com.agx.jetpackmvvm.ext.ifTrue
 import com.airbnb.lottie.LottieAnimationView
 
 class AgxLottie(context: Context, attrs: AttributeSet) : LottieAnimationView(context, attrs) {
@@ -12,23 +12,24 @@ class AgxLottie(context: Context, attrs: AttributeSet) : LottieAnimationView(con
     private var selectedJson: String? = null
     private var unselectedJson: String? = null
     private var onSelectedListener: (Boolean) -> Unit = {}
+
     init {
         val ta: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.AgxLottie)
         selectedJson = ta.getString(R.styleable.AgxLottie_agx_lottie_selected_json)
         unselectedJson = ta.getString(R.styleable.AgxLottie_agx_lottie_unselected_json)
-        selected = ta.getBoolean(R.styleable.AgxLottie_agx_lottie_selected,false)
+        selected = ta.getBoolean(R.styleable.AgxLottie_agx_lottie_selected, false)
         ta.recycle()
         setJson()
         initOnClick()
     }
 
-    private fun setJson(){
+    private fun setJson() {
         selected!!.ifTrue {
             setAnimation(selectedJson)
             playAnimation()
             return
         }
-        if(unselectedJson == null){
+        if (unselectedJson == null) {
             //设置为默认，不开始动画
             setAnimation(selectedJson)
             progress = 0F
@@ -39,7 +40,7 @@ class AgxLottie(context: Context, attrs: AttributeSet) : LottieAnimationView(con
 
     }
 
-    private fun initOnClick(){
+    private fun initOnClick() {
         setOnClickListener {
             selected = !selected!!
             setJson()
@@ -47,13 +48,13 @@ class AgxLottie(context: Context, attrs: AttributeSet) : LottieAnimationView(con
         }
     }
 
-    override fun setSelected(selected: Boolean){
+    override fun setSelected(selected: Boolean) {
         super.setSelected(selected)
         this.selected = selected
         setJson()
     }
 
-    fun setOnSelectedListener(onSelectedListener: (Boolean) -> Unit){
+    fun setOnSelectedListener(onSelectedListener: (Boolean) -> Unit) {
         this.onSelectedListener = onSelectedListener
     }
 }

@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.dcendents.android-maven'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -14,12 +15,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
-    buildFeatures {
-        dataBinding = true
+    dataBinding {
+        enabled = true
+    }
+    viewBinding {
+        enabled = true
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -61,14 +65,19 @@ dependencies {
     api "org.koin:koin-androidx-ext:2.2.2"
 
     //navigation
-    api "androidx.navigation:navigation-fragment-ktx:2.3.4"
-    api "androidx.navigation:navigation-ui-ktx:2.3.4"
+    api "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    api "androidx.navigation:navigation-ui-ktx:2.3.5"
 
     //retrofit
     api "com.squareup.retrofit2:retrofit:2.9.0"
     api "com.squareup.retrofit2:converter-gson:2.9.0"
     api 'com.github.franmontiel:PersistentCookieJar:1.0.1'
-    
+
     //okhttp3 log
     api 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+
+    //Room
+    api "androidx.room:room-runtime:2.3.0"
+    // optional - Kotlin Extensions and Coroutines support for Room
+    api "androidx.room:room-ktx:2.3.0"
 }

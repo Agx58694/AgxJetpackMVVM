@@ -57,6 +57,3 @@
 -keep class retrofit2.** { *; }
 -keepattributes Signature
 -keepattributes Exceptions
-################RxPermissions#################
--keep class com.tbruyelle.rxpermissions2.** { *; }
--keep interface com.tbruyelle.rxpermissions2.** { *; }

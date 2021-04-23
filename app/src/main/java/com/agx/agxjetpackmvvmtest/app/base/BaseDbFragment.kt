@@ -9,7 +9,7 @@ import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmDbFragment<VM, DB>() {
+abstract class BaseDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmDbFragment<VM, DB>() {
     private var tipDialog: QMUITipDialog? = null
 
     /**

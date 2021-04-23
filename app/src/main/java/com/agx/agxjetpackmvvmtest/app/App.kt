@@ -3,7 +3,7 @@ package com.agx.agxjetpackmvvmtest.app
 import android.app.Application
 import android.content.Context
 import com.agx.agxjetpackmvvmtest.di.appModule
-import com.agx.jetpackmvvm.ext.throwable.setOnFormatThrowable
+import com.agx.jetpackmvvm.ext.setOnFormatThrowable
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import kotlin.properties.Delegates

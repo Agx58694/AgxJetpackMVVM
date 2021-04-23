@@ -59,9 +59,6 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
         registerDefUIChange()
         initView(savedInstanceState)
         onVisible()
-        if(!isFirst){
-            createObserver()
-        }
         initListener()
     }
 
@@ -74,15 +71,13 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
      * 是否需要懒加载
      */
     private fun onVisible() {
-        if (lifecycle.currentState == Lifecycle.State.STARTED) {
-            if (isFirst) {
-                lazyLoadData()
-                isFirst = false
-                createObserver()
-                NetworkStateManager.instance.mNetworkStateCallback.observe(viewLifecycleOwner, {
-                    onNetworkStateChanged(it)
-                })
-            }
+        if (lifecycle.currentState == Lifecycle.State.STARTED && isFirst) {
+            lazyLoadData()
+            isFirst = false
+            createObserver()
+            NetworkStateManager.instance.mNetworkStateCallback.observe(viewLifecycleOwner, {
+                onNetworkStateChanged(it)
+            })
         }
     }
 

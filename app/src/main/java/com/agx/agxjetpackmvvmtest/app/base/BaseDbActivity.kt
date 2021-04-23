@@ -9,7 +9,7 @@ import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmDbActivity<VM, DB>() {
+abstract class BaseDbActivity<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmDbActivity<VM, DB>() {
     private var tipDialog: QMUITipDialog? = null
 
     abstract override fun layoutId(): Int

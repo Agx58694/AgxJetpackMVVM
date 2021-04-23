@@ -1,4 +1,4 @@
-package com.agx.jetpackmvvm.ext.throwable
+package com.agx.jetpackmvvm.ext
 
 import android.content.Context
 import com.agx.jetpackmvvm.CustomException

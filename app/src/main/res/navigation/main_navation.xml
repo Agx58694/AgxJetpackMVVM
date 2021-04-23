@@ -6,17 +6,24 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.agx.agxjetpackmvvmtest.ui.fragment.main.MainFragment"
-        android:label="MainFragment" >
+        android:label="MainFragment">
         <action
             android:id="@+id/action_mainFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_mainFragment_to_loginFragment"
             app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainFragment_to_dbFragment"
+            app:destination="@id/dbFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -25,9 +32,21 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.agx.agxjetpackmvvmtest.ui.fragment.home.HomeFragment"
-        android:label="HomeFragment"/>
+        android:label="HomeFragment" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.agx.agxjetpackmvvmtest.ui.fragment.login.LoginFragment"
-        android:label="LoginFragment" />
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_dbFragment"
+            app:destination="@id/dbFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/dbFragment"
+        android:name="com.agx.agxjetpackmvvmtest.ui.fragment.db.DbFragment"
+        android:label="DbFragment" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.agx.jetpackmvvm.ext.util
+package com.agx.jetpackmvvm.ext
 
 inline fun Boolean.ifTrue(defaultValue: () -> Unit): Boolean {
     if (this) {

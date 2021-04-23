@@ -4,9 +4,9 @@ import android.app.Application
 import androidx.annotation.CallSuper
 import androidx.lifecycle.AndroidViewModel
 import com.agx.jetpackmvvm.configure.loadingContent
-import com.agx.jetpackmvvm.ext.throwable.formatThrowable
-import com.agx.jetpackmvvm.ext.util.ifFalse
-import com.agx.jetpackmvvm.ext.util.ifTrue
+import com.agx.jetpackmvvm.ext.formatThrowable
+import com.agx.jetpackmvvm.ext.ifFalse
+import com.agx.jetpackmvvm.ext.ifTrue
 import com.agx.jetpackmvvm.network.manager.NetworkStateManager
 import com.agx.jetpackmvvm.state.SingleLiveEvent
 import kotlinx.coroutines.*

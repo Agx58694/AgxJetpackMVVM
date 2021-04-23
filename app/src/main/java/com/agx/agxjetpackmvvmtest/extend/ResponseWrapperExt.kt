@@ -1,12 +1,13 @@
 package com.agx.agxjetpackmvvmtest.extend
 
-import com.agx.jetpackmvvm.ext.util.ifFalse
-import com.agx.jetpackmvvm.ext.util.ifTrue
-import com.agx.jetpackmvvm.network.bean.ResponseWrapper
+import com.agx.agxjetpackmvvmtest.constant.HTTP_OK
+import com.agx.jetpackmvvm.ext.ifFalse
+import com.agx.jetpackmvvm.ext.ifTrue
+import com.agx.agxjetpackmvvmtest.http.ResponseWrapper
 
 
-fun <T> ResponseWrapper<T>.unpacking(success: (T?) -> Unit, failure: (String) -> Unit = {}){
-    (code == 200).ifTrue {
+fun <T> ResponseWrapper<T>.unpacking(success: (T?) -> Unit, failure: (String) -> Unit = {}) {
+    (code == HTTP_OK).ifTrue {
         success.invoke(data)
     }.ifFalse {
         failure.invoke(message)

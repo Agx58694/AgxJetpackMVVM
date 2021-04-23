@@ -24,11 +24,11 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="150dp"
             android:src="@drawable/account"
             app:layout_constrainedWidth="true"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView21"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
         <EditText
@@ -96,7 +96,7 @@
             app:layout_constraintTop_toTopOf="@+id/imagePassword"
             binding:isShowTextPwd="@{viewModel.isShowTextPwd}"
             binding:visibility="@{viewModel.isShowEditPassword}"
-            binding:afterTextChanged="@{viewModel::isShowPasswordImg}"/>
+            binding:afterTextChanged="@{viewModel::isShowPasswordImg}" />
 
         <CheckBox
             android:id="@+id/checkPassword"
@@ -194,9 +194,9 @@
             android:id="@+id/view4"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginBottom="48dp"
+            android:layout_marginBottom="32dp"
             android:background="@color/view_bg"
-            app:layout_constraintBottom_toTopOf="@+id/text_agreement"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/image_wei_xin"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent" />
@@ -208,6 +208,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginEnd="12dp"
             android:src="@drawable/wechat"
+            android:onClick="@{() -> clickProxy.testClick()}"
             app:layout_constraintBottom_toBottomOf="@+id/view4"
             app:layout_constraintEnd_toStartOf="@+id/image_qq"
             app:layout_constraintStart_toEndOf="@+id/view4"
@@ -239,40 +240,6 @@
             app:layout_constraintEnd_toEndOf="@+id/editPassword"
             app:layout_constraintTop_toBottomOf="@+id/viewPassword"
             binding:visibility="@{viewModel.isShowTextForgetPassword}" />
-
-        <ImageView
-            android:id="@+id/imageReturn"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="14dp"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/cancel_fork_green" />
-
-        <TextView
-            android:id="@+id/textView21"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="51dp"
-            android:text="欢迎登陆"
-            android:textColor="@color/black"
-            android:textSize="23sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageReturn" />
-
-        <TextView
-            android:id="@+id/text_agreement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16sp"
-            android:text="登陆即代表你已同意用户协议、隐私政策"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

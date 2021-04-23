@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.viewbinding.ViewBinding
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.agx.jetpackmvvm.network.manager.NetState
 import com.agx.jetpackmvvm.network.manager.NetworkStateManager
 
-abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment() {
+abstract class BaseVmVbFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
 
     //是否第一次加载
     private var isFirst: Boolean = true
@@ -21,7 +21,7 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
     lateinit var mViewModel: VM
 
     //该类绑定的ViewDataBinding
-    lateinit var mDataBinding: DB
+    lateinit var mViewBinding: VB
 
     /**
      * 当前Fragment绑定的视图布局
@@ -56,9 +56,8 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mDataBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
-        mDataBinding.lifecycleOwner = this
-        return mDataBinding.root
+        mViewBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
+        return mViewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

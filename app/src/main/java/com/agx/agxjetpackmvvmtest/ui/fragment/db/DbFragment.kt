@@ -2,13 +2,17 @@ package com.agx.agxjetpackmvvmtest.ui.fragment.db
 
 import android.os.Bundle
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import com.agx.agxjetpackmvvmtest.R
 import com.agx.agxjetpackmvvmtest.app.base.BaseVbFragment
 import com.agx.agxjetpackmvvmtest.databinding.FragmentDbBinding
 import com.agx.agxjetpackmvvmtest.model.entity.UserEntity
 import com.agx.agxjetpackmvvmtest.ui.activity.DataStoreViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import java.lang.RuntimeException
 
 /**
  * 数据库测试
@@ -60,6 +64,20 @@ class DbFragment : BaseVbFragment<DbViewModel,FragmentDbBinding>() {
             it.onFailure {
                 showErrorMessage(it.message.toString())
             }
+        }
+        mViewModel.testResult.observe(this){
+            showSuccessMessage(it.toString())
+//            这里会出现闪退
+//            lifecycleScope.launch {
+//                delay(1000)
+//                throw RuntimeException("这里尝试抛出一个错误")
+//            }
+//            ------------------------分割线--------------------------
+//            //这里不会触发闪退，但会触发全局错误配置器，并触发提示格式化后的错误信息
+//            lifecycleScope.launch(mViewModel.coroutineContext){
+//                delay(1000)
+//                throw RuntimeException("这里尝试抛出一个错误")
+//            }
         }
         dataStoreViewModel.userName.asLiveData().observe(this){
             showSuccessMessage(it.toString())

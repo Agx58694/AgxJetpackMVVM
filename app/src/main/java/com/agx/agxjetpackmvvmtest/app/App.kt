@@ -26,8 +26,8 @@ class App : Application() {
             androidContext(this@App)
             modules(appModule)
         }
-        setOnFormatThrowable { throwable, context ->
-            return@setOnFormatThrowable "我是返回的自定义异常"
-        }
+//        setOnFormatThrowable { throwable, context ->
+//            return@setOnFormatThrowable "我是返回的自定义异常"
+//        }
     }
 }

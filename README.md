@@ -1,4 +1,4 @@
-# AgxJetpackMvvm
+# Agx-JetpackMvvm
 
 #### 介绍
 基于MVVM做的一个快速开发库，按照hegaojian/JetpackMvvm的架构基础进行的改变封装，用了谷歌JetPack官方组件库

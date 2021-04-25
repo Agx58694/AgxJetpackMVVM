@@ -1,7 +1,7 @@
 # AgxJetpackMvvm
 
 #### 介绍
-基于JetpackMvvm做的一个包，按照hegaojian/JetpackMvvm的架构基础进行的改变封装
+基于MVVM做的一个快速开发库，按照hegaojian/JetpackMvvm的架构基础进行的改变封装，用了谷歌JetPack官方组件库
 kotlin+协程+retrofit2+navigation+koin+room+liveData
 
 #### 软件架构

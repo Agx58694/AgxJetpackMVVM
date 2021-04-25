@@ -18,11 +18,15 @@ class MainFragment : BaseDbFragment<MainViewModel, FragmentMainBinding>() {
             nav().navigate(R.id.action_mainFragment_to_loginFragment)
         }
         button2.setOnClickListener {
-            mViewModel.getData()
+            nav().navigate(R.id.action_mainFragment_to_homeFragment)
         }
         button3.setOnClickListener {
             nav().navigate(R.id.action_mainFragment_to_dbFragment)
         }
+    }
+
+    fun testData(){
+        mViewModel.getData()
     }
 
     override fun lazyLoadData() {

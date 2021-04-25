@@ -1,6 +1,7 @@
 package com.agx.jetpackmvvm.base.viewmodel
 
 import android.app.Application
+import android.content.Context
 import androidx.annotation.CallSuper
 import androidx.lifecycle.AndroidViewModel
 import com.agx.jetpackmvvm.configure.loadingContent
@@ -32,6 +33,8 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
             //处理父协程错误
             onErrorMsg.value = exception.formatThrowable(getApplication())
         }
+
+    fun getContext(): Context = getApplication<Application>()
 
     fun coroutineExceptionHandler(
         isSendError: Boolean = false,

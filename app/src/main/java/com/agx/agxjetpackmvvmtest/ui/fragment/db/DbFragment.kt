@@ -1,16 +1,21 @@
 package com.agx.agxjetpackmvvmtest.ui.fragment.db
 
 import android.os.Bundle
+import androidx.lifecycle.asLiveData
 import com.agx.agxjetpackmvvmtest.R
 import com.agx.agxjetpackmvvmtest.app.base.BaseVbFragment
 import com.agx.agxjetpackmvvmtest.databinding.FragmentDbBinding
 import com.agx.agxjetpackmvvmtest.model.entity.UserEntity
+import com.agx.agxjetpackmvvmtest.ui.activity.DataStoreViewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 /**
  * 数据库测试
  * 使用ViewBinding*/
 class DbFragment : BaseVbFragment<DbViewModel,FragmentDbBinding>() {
+    private val dataStoreViewModel: DataStoreViewModel by sharedViewModel()
+
     override fun layoutId() = R.layout.fragment_db
 
     override fun initVM(): DbViewModel = getViewModel()
@@ -28,6 +33,9 @@ class DbFragment : BaseVbFragment<DbViewModel,FragmentDbBinding>() {
         }
         mViewBinding.button6.setOnClickListener {
             mViewModel.test()
+        }
+        mViewBinding.button7.setOnClickListener {
+            dataStoreViewModel.saveUserName("哈哈一笑")
         }
     }
 
@@ -52,6 +60,9 @@ class DbFragment : BaseVbFragment<DbViewModel,FragmentDbBinding>() {
             it.onFailure {
                 showErrorMessage(it.message.toString())
             }
+        }
+        dataStoreViewModel.userName.asLiveData().observe(this){
+            showSuccessMessage(it.toString())
         }
     }
 }

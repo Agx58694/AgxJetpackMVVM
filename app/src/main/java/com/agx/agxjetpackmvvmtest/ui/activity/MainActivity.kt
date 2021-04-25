@@ -14,6 +14,7 @@ import com.agx.jetpackmvvm.network.manager.NetState
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainActivity : BaseDbActivity<MainViewModel, ActivityMainBinding>() {
+
     override fun layoutId() = R.layout.activity_main
 
     override fun initVM(): MainViewModel = getViewModel()

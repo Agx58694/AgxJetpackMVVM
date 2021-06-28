@@ -19,6 +19,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     var onErrorMsg = SingleLiveEvent<String>()
     private var rootJob = SupervisorJob()
     val loadingChange: UiLoadingChange by lazy { UiLoadingChange() }
+    val mContext: Context by lazy { getApplication<Application>() }
 
     class UiLoadingChange {
         //显示加载框
@@ -33,8 +34,6 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
             //处理父协程错误
             onErrorMsg.value = exception.formatThrowable(getApplication())
         }
-
-    fun getContext(): Context = getApplication<Application>()
 
     fun coroutineExceptionHandler(
         isSendError: Boolean = false,

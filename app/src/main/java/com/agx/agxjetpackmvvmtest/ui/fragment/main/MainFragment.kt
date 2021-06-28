@@ -15,13 +15,13 @@ class MainFragment : BaseDbFragment<MainViewModel, FragmentMainBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         button.setOnClickListener {
-            nav().navigate(R.id.action_mainFragment_to_loginFragment)
+            nav()?.navigate(R.id.action_mainFragment_to_loginFragment)
         }
         button2.setOnClickListener {
-            nav().navigate(R.id.action_mainFragment_to_homeFragment)
+            nav()?.navigate(R.id.action_mainFragment_to_homeFragment)
         }
         button3.setOnClickListener {
-            nav().navigate(R.id.action_mainFragment_to_dbFragment)
+            nav()?.navigate(R.id.action_mainFragment_to_dbFragment)
         }
     }
 

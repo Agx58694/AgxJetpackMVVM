@@ -48,7 +48,7 @@ class LoginFragment : BaseDbFragment<LoginViewModel, LoginFragmentBinding>() {
         }
 
         fun testClick(){
-            nav().navigate(R.id.action_loginFragment_to_dbFragment)
+            nav()?.navigate(R.id.action_loginFragment_to_dbFragment)
         }
     }
 }

@@ -75,6 +75,11 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
         onVisible()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mDataBinding.unbind()
+    }
+
     /**
      * 是否需要懒加载
      */

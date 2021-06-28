@@ -13,11 +13,11 @@ import kotlinx.coroutines.flow.map
  * 单Activity使用全局ViewModel*/
 class DataStoreViewModel(application: Application) : BaseViewModel(application) {
     private val userNameKey = stringPreferencesKey(USER_NAME)
-    val userName: Flow<String?> = getContext().dataStore.data.map { it[userNameKey] }
+    val userName: Flow<String?> = mContext.dataStore.data.map { it[userNameKey] }
 
     fun saveUserName(name: String) = launch(
         block = {
-            getContext().dataStore.edit {
+            mContext.dataStore.edit {
                 it[userNameKey] = name
             }
         }

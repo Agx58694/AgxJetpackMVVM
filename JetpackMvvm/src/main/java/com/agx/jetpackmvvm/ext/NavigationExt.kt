@@ -17,4 +17,3 @@ fun Fragment.nav(): NavController? {
 fun nav(view: View): NavController {
     return Navigation.findNavController(view)
 }
-

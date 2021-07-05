@@ -5,7 +5,6 @@ import com.agx.agxjetpackmvvmtest.R
 import com.agx.agxjetpackmvvmtest.app.base.BaseDbFragment
 import com.agx.agxjetpackmvvmtest.databinding.LoginFragmentBinding
 import com.agx.jetpackmvvm.ext.nav
-import kotlinx.android.synthetic.main.login_fragment.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 /**
@@ -33,7 +32,7 @@ class LoginFragment : BaseDbFragment<LoginViewModel, LoginFragmentBinding>() {
             showErrorMessage(it)
         }
         mViewModel.isShowTextPwd.observe(this) {
-            editPassword.setSelection(editPassword.text.length)
+            mDataBinding.editPassword.setSelection(mDataBinding.editPassword.text.length)
         }
         mViewModel.loginResult.observe(this) { it ->
             it.onSuccess {

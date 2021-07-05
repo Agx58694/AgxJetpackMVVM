@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.dcendents.android-maven'
 
@@ -10,16 +9,12 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 5
-        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
-    dataBinding {
-        enabled = true
-    }
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
     }
     buildTypes {
         release {
@@ -27,28 +22,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    allprojects {
-        repositories {
-            google()
-            jcenter()
-            maven { url "http://maven.aliyun.com/nexus/content/repositories/releases" }
-            maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-            maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
-            maven { url 'https://jitpack.io' }
-        }
-    }
+}
+
+repositories {
+    maven { url "https://maven.aliyun.com/repository/google" }
+    maven { url 'https://maven.aliyun.com/repository/public' }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
 
     //ui
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.core:core-ktx:1.5.0'
 
     //https://developer.android.google.cn/jetpack/androidx/releases/lifecycle
     api 'androidx.lifecycle:lifecycle-common-java8:2.3.1'

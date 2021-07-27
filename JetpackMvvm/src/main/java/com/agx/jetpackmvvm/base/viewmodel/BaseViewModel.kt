@@ -19,6 +19,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     var onErrorMsg = SingleLiveEvent<String>()
     private var rootJob = SupervisorJob()
     val loadingChange: UiLoadingChange by lazy { UiLoadingChange() }
+    val layoutDataChange: LayoutDataChange by lazy { LayoutDataChange() }
     val mContext: Context by lazy { getApplication<Application>() }
 
     class UiLoadingChange {
@@ -27,6 +28,14 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
 
         //隐藏
         val dismissDialog by lazy { SingleLiveEvent<Void>() }
+    }
+
+    class LayoutDataChange {
+        //加载中
+        val layoutDataLoading by lazy { SingleLiveEvent<Void>() }
+
+        //加载失败
+        val layoutDataError by lazy { SingleLiveEvent<String>() }
     }
 
     override val coroutineContext: CoroutineContext
@@ -106,6 +115,29 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
             startLoading.invoke()
             block()
             finishLoading.invoke()
+        }
+    }
+
+    /**
+     * 带状态界面回调的协程任务
+     * 界面初始化所需数据可全部放到这里，这里将发送加载中、加载完成、加载失败事件发送到对应的fragment或activity
+     * isNetworkJob true 代表需要网络的协程工作*/
+    fun layoutDataLaunch(
+        block: suspend CoroutineScope.() -> Unit,
+        isNetworkJob: Boolean = true,
+    ): Job {
+        return launch(coroutineExceptionHandler {
+            layoutDataChange.layoutDataError.value = it
+        }) {
+            isNetworkJob.ifTrue {
+                //检查网络，没有网络则抛出异常
+                NetworkStateManager.instance.mNetworkStateCallback.value?.isSuccess?.ifFalse {
+                    //不处理，直接返回。该错误逻辑请重写onNetworkStateChanged处理
+                    return@launch
+                }
+            }
+            layoutDataChange.layoutDataLoading.call()
+            block()
         }
     }
 

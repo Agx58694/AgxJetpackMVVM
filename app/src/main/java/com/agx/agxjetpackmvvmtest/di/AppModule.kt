@@ -13,6 +13,7 @@ import com.agx.agxjetpackmvvmtest.ui.fragment.db.DbViewModel
 import com.agx.agxjetpackmvvmtest.ui.fragment.home.HomeViewModel
 import com.agx.agxjetpackmvvmtest.ui.fragment.login.LoginViewModel
 import com.agx.agxjetpackmvvmtest.ui.fragment.main.MainViewModel
+import com.agx.agxjetpackmvvmtest.ui.fragment.state.StateViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -22,6 +23,7 @@ val viewModelModule = module {
     viewModel { LoginViewModel(get(), get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { DbViewModel(get(), get()) }
+    viewModel { StateViewModel(get()) }
 }
 
 val repositoryModule = module {

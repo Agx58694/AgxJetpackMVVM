@@ -9,8 +9,7 @@ import java.lang.RuntimeException
 class LoginRepository(private val apiService: ApiService) : BaseRepository() {
     suspend fun getCode(success: (String) -> Unit, failure: (String) -> Unit = {}) {
         //这里执行模拟网络请求成功测试
-        delay(2000)
-        success.invoke("发送成功")
+        apiService.baiduApi()?.let(success)
     }
     
     suspend fun getCodeError1(success: (String) -> Unit = {}, failure: (String) -> Unit){

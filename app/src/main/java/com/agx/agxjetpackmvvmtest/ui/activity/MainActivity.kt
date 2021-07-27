@@ -22,13 +22,10 @@ class MainActivity : BaseDbActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         //处理viewModel原始错误，所以viewModel的原始错误都会到这里，开发者可记录日子或上传服务器记录
+        //单activity放到这里，其他放到Application
         setOnAppThrowableListener {
             Toast.makeText(this,"原始错误：${it.message.toString()}",Toast.LENGTH_LONG).show()
         }
-//        setOnFormatThrowable { throwable, context ->
-//            //这里处理ViewModel使用协程方法出现的所有错误，开发者可自定义处理数据库异常和网络请求异常，并返回相应的用户可读性的错误
-//            "自定义错误格式化"
-//        }
         loadingContent = "加载中"
     }
 

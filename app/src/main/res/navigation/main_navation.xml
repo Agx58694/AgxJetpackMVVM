@@ -28,6 +28,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_mainFragment_to_stateFragment"
+            app:destination="@id/stateFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -49,4 +56,8 @@
         android:id="@+id/dbFragment"
         android:name="com.agx.agxjetpackmvvmtest.ui.fragment.db.DbFragment"
         android:label="DbFragment" />
+    <fragment
+        android:id="@+id/stateFragment"
+        android:name="com.agx.agxjetpackmvvmtest.ui.fragment.state.StateFragment"
+        android:label="StateFragment" />
 </navigation>

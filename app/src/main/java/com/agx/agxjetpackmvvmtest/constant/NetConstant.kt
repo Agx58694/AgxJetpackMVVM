@@ -1,6 +1,6 @@
 package com.agx.agxjetpackmvvmtest.constant
 
-const val BASE_URL = "http://47.108.70.161/"
+const val BASE_URL = "https://www.baidu.com"
 
 const val HTTP_OK = 200
 

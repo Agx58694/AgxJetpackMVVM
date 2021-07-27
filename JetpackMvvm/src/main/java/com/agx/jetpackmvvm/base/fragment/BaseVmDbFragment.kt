@@ -47,6 +47,14 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
      */
     abstract fun createObserver()
 
+    /**
+     * 界面数据加载中*/
+    abstract fun layoutDataLoading()
+
+    /**
+     * 界面数据加载失败*/
+    abstract fun layoutDataError(errorMessage: String)
+
     abstract fun showLoading(message: String)
 
     abstract fun dismissLoading()
@@ -98,12 +106,18 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
      * 注册 UI 事件
      */
     private fun registerDefUIChange() {
-        mViewModel.loadingChange.showDialog.observe(viewLifecycleOwner, {
+        mViewModel.loadingChange.showDialog.observe(viewLifecycleOwner) {
             showLoading(it)
-        })
-        mViewModel.loadingChange.dismissDialog.observe(viewLifecycleOwner, {
+        }
+        mViewModel.loadingChange.dismissDialog.observe(viewLifecycleOwner) {
             dismissLoading()
-        })
+        }
+        mViewModel.layoutDataChange.layoutDataLoading.observe(viewLifecycleOwner) {
+            layoutDataLoading()
+        }
+        mViewModel.layoutDataChange.layoutDataError.observe(viewLifecycleOwner) {
+            layoutDataError(it)
+        }
     }
 
     /**

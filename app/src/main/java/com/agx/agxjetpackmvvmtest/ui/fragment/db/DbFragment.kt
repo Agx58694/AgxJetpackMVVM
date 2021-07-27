@@ -2,22 +2,17 @@ package com.agx.agxjetpackmvvmtest.ui.fragment.db
 
 import android.os.Bundle
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
 import com.agx.agxjetpackmvvmtest.R
-import com.agx.agxjetpackmvvmtest.app.base.BaseVbFragment
+import com.agx.agxjetpackmvvmtest.app.base.BaseDbFragment
 import com.agx.agxjetpackmvvmtest.databinding.FragmentDbBinding
 import com.agx.agxjetpackmvvmtest.model.entity.UserEntity
 import com.agx.agxjetpackmvvmtest.ui.activity.DataStoreViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import java.lang.RuntimeException
 
 /**
- * 数据库测试
- * 使用ViewBinding*/
-class DbFragment : BaseVbFragment<DbViewModel,FragmentDbBinding>() {
+ * 数据库测试*/
+class DbFragment : BaseDbFragment<DbViewModel, FragmentDbBinding>() {
     private val dataStoreViewModel: DataStoreViewModel by sharedViewModel()
 
     override fun layoutId() = R.layout.fragment_db
@@ -29,16 +24,16 @@ class DbFragment : BaseVbFragment<DbViewModel,FragmentDbBinding>() {
     override fun lazyLoadData() {}
 
     override fun initListener() {
-        mViewBinding.button4.setOnClickListener {
+        mDataBinding.button4.setOnClickListener {
             mViewModel.insert(UserEntity(realName = "周星星",nikeName = "周洁轮",age = 22))
         }
-        mViewBinding.button5.setOnClickListener {
+        mDataBinding.button5.setOnClickListener {
             mViewModel.getAllUser()
         }
-        mViewBinding.button6.setOnClickListener {
+        mDataBinding.button6.setOnClickListener {
             mViewModel.test()
         }
-        mViewBinding.button7.setOnClickListener {
+        mDataBinding.button7.setOnClickListener {
             dataStoreViewModel.saveUserName("哈哈一笑")
         }
     }

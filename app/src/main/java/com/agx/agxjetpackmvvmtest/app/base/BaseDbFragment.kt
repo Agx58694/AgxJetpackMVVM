@@ -1,17 +1,23 @@
 package com.agx.agxjetpackmvvmtest.app.base
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
+import com.agx.agxjetpackmvvmtest.ui.custom.ErrorCallback
 import com.agx.jetpackmvvm.base.fragment.BaseVmDbFragment
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
+import com.kingja.loadsir.core.LoadService
+import com.kingja.loadsir.core.LoadSir
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 abstract class BaseDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmDbFragment<VM, DB>() {
     private var tipDialog: QMUITipDialog? = null
-
+    lateinit var mLoadService: LoadService<*>
     /**
      * 当前Fragment绑定的视图布局
      */
@@ -30,6 +36,28 @@ abstract class BaseDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVm
      * 创建LiveData观察者 懒加载之后才会触发
      */
     override fun createObserver() {}
+
+    override fun layoutDataLoading() {}
+
+    override fun layoutDataError(errorMessage: String) {}
+
+    open fun onReload(v: View) {}
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        mLoadService = LoadSir.getDefault().register(super.onCreateView(inflater, container, savedInstanceState)){
+            onReload(it)
+        }
+        return mLoadService.loadLayout
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        mLoadService.showSuccess()
+        super.onViewCreated(view, savedInstanceState)
+    }
 
     /**
      * 打开等待框

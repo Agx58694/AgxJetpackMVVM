@@ -3,9 +3,12 @@ package com.agx.agxjetpackmvvmtest.http
 import com.agx.agxjetpackmvvmtest.BuildConfig
 import com.agx.agxjetpackmvvmtest.constant.TIME_OUT
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.reflect.Type
 import java.util.concurrent.TimeUnit
 
 abstract class BaseRetrofitClient {
@@ -34,8 +37,21 @@ abstract class BaseRetrofitClient {
     fun <S> getService(serviceClass: Class<S>, baseUrl: String): S {
         return Retrofit.Builder()
             .client(client)
+            .addConverterFactory(StringConverterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(baseUrl)
             .build().create(serviceClass)
+    }
+
+    private class StringConverterFactory : Converter.Factory() {
+        override fun responseBodyConverter(
+            inType: Type?,
+            inAnnotations: Array<Annotation>?,
+            inRetrofit: Retrofit?
+        ): Converter<ResponseBody, String>? {
+            return if (String::class.java == inType) {
+                Converter { inValue -> inValue.string().replace("\"", "") }
+            } else null
+        }
     }
 }

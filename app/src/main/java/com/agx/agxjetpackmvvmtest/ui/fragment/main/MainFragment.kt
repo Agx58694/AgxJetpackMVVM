@@ -22,6 +22,9 @@ class MainFragment : BaseDbFragment<MainViewModel, FragmentMainBinding>() {
         mDataBinding.button3.setOnClickListener {
             nav()?.navigate(R.id.action_mainFragment_to_dbFragment)
         }
+        mDataBinding.button12.setOnClickListener {
+            nav()?.navigate(R.id.action_mainFragment_to_stateFragment)
+        }
     }
 
     fun testData(){

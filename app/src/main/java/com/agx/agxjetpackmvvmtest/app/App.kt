@@ -3,7 +3,11 @@ package com.agx.agxjetpackmvvmtest.app
 import android.app.Application
 import android.content.Context
 import com.agx.agxjetpackmvvmtest.di.appModule
-import com.agx.jetpackmvvm.ext.setOnFormatThrowable
+import com.agx.agxjetpackmvvmtest.ui.custom.EmptyCallback
+import com.agx.agxjetpackmvvmtest.ui.custom.ErrorCallback
+import com.agx.agxjetpackmvvmtest.ui.custom.LoadingCallback
+import com.agx.agxjetpackmvvmtest.ui.custom.NoNetworkCallback
+import com.kingja.loadsir.core.LoadSir
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import kotlin.properties.Delegates
@@ -26,8 +30,15 @@ class App : Application() {
             androidContext(this@App)
             modules(appModule)
         }
-//        setOnFormatThrowable { throwable, context ->
-//            return@setOnFormatThrowable "我是返回的自定义异常"
-//        }
+        initLoadSir()
+    }
+
+    private fun initLoadSir(){
+        LoadSir.beginBuilder()
+            .addCallback(LoadingCallback())
+            .addCallback(ErrorCallback())
+            .addCallback(EmptyCallback())
+            .addCallback(NoNetworkCallback())
+            .commit()
     }
 }

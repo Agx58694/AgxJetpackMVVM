@@ -4,13 +4,14 @@ import android.os.Bundle
 import com.agx.agxjetpackmvvmtest.R
 import com.agx.agxjetpackmvvmtest.app.base.BaseDbFragment
 import com.agx.agxjetpackmvvmtest.databinding.LoginFragmentBinding
+import com.agx.agxjetpackmvvmtest.databinding.LoginFragmentBindingImpl
 import com.agx.jetpackmvvm.ext.nav
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 /**
  * 登陆测试
  * 使用DataBinding*/
-class LoginFragment : BaseDbFragment<LoginViewModel, LoginFragmentBinding>() {
+class LoginFragment : BaseDbFragment<LoginViewModel, LoginFragmentBindingImpl>() {
 
     override fun layoutId() = R.layout.login_fragment
 

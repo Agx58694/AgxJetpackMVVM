@@ -7,11 +7,4 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
-
-    <declare-styleable name="AgxLottie">
-        <attr name="agx_lottie_selected" format="boolean" />
-        <attr name="agx_lottie_unselected_json" format="string" />
-        <attr name="agx_lottie_selected_json" format="string" />
-    </declare-styleable>
 </resources>

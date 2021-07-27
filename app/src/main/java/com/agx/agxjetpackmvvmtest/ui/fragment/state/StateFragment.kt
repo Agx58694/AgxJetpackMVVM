@@ -5,10 +5,7 @@ import android.view.View
 import com.agx.agxjetpackmvvmtest.R
 import com.agx.agxjetpackmvvmtest.app.base.BaseDbFragment
 import com.agx.agxjetpackmvvmtest.databinding.FragmentStateBinding
-import com.agx.agxjetpackmvvmtest.ui.custom.EmptyCallback
-import com.agx.agxjetpackmvvmtest.ui.custom.ErrorCallback
-import com.agx.agxjetpackmvvmtest.ui.custom.LoadingCallback
-import com.agx.agxjetpackmvvmtest.ui.custom.NoNetworkCallback
+import com.agx.agxjetpackmvvmtest.ui.custom.*
 import com.agx.jetpackmvvm.ext.ifFalse
 import com.agx.jetpackmvvm.ext.ifTrue
 import com.agx.jetpackmvvm.network.manager.NetState
@@ -50,6 +47,10 @@ class StateFragment : BaseDbFragment<StateViewModel,FragmentStateBinding>() {
         mLoadService.showCallback(ErrorCallback::class.java)
     }
 
+    override fun layoutDataTimeout() {
+        mLoadService.showCallback(TimeoutCallback::class.java)
+    }
+
     override fun onReload(v: View) {
         mViewModel.loadData(1)
     }
@@ -71,6 +72,9 @@ class StateFragment : BaseDbFragment<StateViewModel,FragmentStateBinding>() {
         }
         fun loadEmpty(){
             mViewModel.loadData(3)
+        }
+        fun loadTimeout(){
+            mViewModel.loadData(4)
         }
     }
 }

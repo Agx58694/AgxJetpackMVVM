@@ -16,7 +16,8 @@ enum class ApiErrorType(val code: Int, @param: StringRes private val messageId: 
     JSON_ERROR(1001, R.string.json_error),
     EOF_ERROR(1002, R.string.eof_error),
     GATEWAY_TIMEOUT(504, R.string.gateway_timeout),
-    SYSTEM_ERROR(-1001, R.string.system_error);
+    SYSTEM_ERROR(-1001, R.string.system_error),
+    TIME_OUT(-1002,R.string.time_out);
 
     fun getApiErrorModel(context: Context): ApiErrorModel {
         return ApiErrorModel(code, context.getString(messageId))

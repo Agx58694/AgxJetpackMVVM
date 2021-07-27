@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.agx.jetpackmvvm.CustomException
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
 import kotlinx.coroutines.delay
+import java.util.concurrent.TimeoutException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -22,6 +23,7 @@ class StateViewModel(application: Application) : BaseViewModel(application) {
                 1 -> loadData1()
                 2 -> loadData2()
                 3 -> loadData3()
+                4 -> loadData4()
                 else -> loadData1()
             }
             loadDataResult.value = result
@@ -54,6 +56,16 @@ class StateViewModel(application: Application) : BaseViewModel(application) {
                 delay(500)
                 //正常加载数据，返回空
                 result.resume("")
+            }
+        )
+    }
+
+    private suspend fun loadData4(): String = suspendCoroutine { result ->
+        launch(
+            block = {
+                delay(500)
+                //超时
+                result.resumeWithException(TimeoutException("超时"))
             }
         )
     }

@@ -7,11 +7,13 @@ import com.agx.jetpackmvvm.network.ApiErrorType
 import com.agx.jetpackmvvm.network.ApiErrorType.*
 import com.google.gson.JsonSyntaxException
 import com.google.gson.stream.MalformedJsonException
+import kotlinx.coroutines.TimeoutCancellationException
 import retrofit2.HttpException
 import java.io.EOFException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+import java.util.concurrent.TimeoutException
 
 /**
  * 系统原始错误*/
@@ -83,6 +85,8 @@ private fun formatThrowableDefault(it: Throwable, context: Context): String {
         is JsonSyntaxException -> JSON_ERROR
         is MalformedJsonException -> JSON_ERROR
         is EOFException -> EOF_ERROR
+        is TimeoutException -> TIME_OUT
+        is TimeoutCancellationException -> TIME_OUT
         else -> it.formatSystemThrowable()
     }
     return "${apiErrorType.code}  ${apiErrorType.getApiErrorModel(context).message}"

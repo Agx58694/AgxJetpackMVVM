@@ -12,4 +12,5 @@
     <string name="eof_error" translatable="false">服务繁忙,请稍后再试（efo_error）</string>
     <string name="system_error" translatable="false">系统异常，正在发送错误日志</string>
     <string name="gateway_timeout" translatable="false">您的网络不太好哦</string>
+    <string name="time_out" translatable="false">请求超时</string>
 </resources>

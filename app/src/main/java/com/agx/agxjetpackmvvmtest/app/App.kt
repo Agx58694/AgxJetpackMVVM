@@ -3,10 +3,7 @@ package com.agx.agxjetpackmvvmtest.app
 import android.app.Application
 import android.content.Context
 import com.agx.agxjetpackmvvmtest.di.appModule
-import com.agx.agxjetpackmvvmtest.ui.custom.EmptyCallback
-import com.agx.agxjetpackmvvmtest.ui.custom.ErrorCallback
-import com.agx.agxjetpackmvvmtest.ui.custom.LoadingCallback
-import com.agx.agxjetpackmvvmtest.ui.custom.NoNetworkCallback
+import com.agx.agxjetpackmvvmtest.ui.custom.*
 import com.kingja.loadsir.core.LoadSir
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -39,6 +36,7 @@ class App : Application() {
             .addCallback(ErrorCallback())
             .addCallback(EmptyCallback())
             .addCallback(NoNetworkCallback())
+            .addCallback(TimeoutCallback())
             .commit()
     }
 }

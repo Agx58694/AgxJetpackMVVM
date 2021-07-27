@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
-import com.agx.agxjetpackmvvmtest.ui.custom.ErrorCallback
 import com.agx.jetpackmvvm.base.fragment.BaseVmDbFragment
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.kingja.loadsir.core.LoadService
@@ -40,6 +39,8 @@ abstract class BaseDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVm
     override fun layoutDataLoading() {}
 
     override fun layoutDataError(errorMessage: String) {}
+
+    override fun layoutDataTimeout() {}
 
     open fun onReload(v: View) {}
 

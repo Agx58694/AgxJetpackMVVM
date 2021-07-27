@@ -55,6 +55,10 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
      * 界面数据加载失败*/
     abstract fun layoutDataError(errorMessage: String)
 
+    /**
+     * 请求超时*/
+    abstract fun layoutDataTimeout()
+
     abstract fun showLoading(message: String)
 
     abstract fun dismissLoading()
@@ -117,6 +121,9 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
         }
         mViewModel.layoutDataChange.layoutDataError.observe(viewLifecycleOwner) {
             layoutDataError(it)
+        }
+        mViewModel.layoutDataChange.layoutDataTimeout.observe(viewLifecycleOwner){
+            layoutDataTimeout()
         }
     }
 

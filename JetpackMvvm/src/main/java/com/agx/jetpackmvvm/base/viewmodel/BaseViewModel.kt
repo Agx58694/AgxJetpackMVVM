@@ -11,6 +11,8 @@ import com.agx.jetpackmvvm.ext.ifTrue
 import com.agx.jetpackmvvm.network.manager.NetworkStateManager
 import com.agx.jetpackmvvm.state.SingleLiveEvent
 import kotlinx.coroutines.*
+import retrofit2.HttpException
+import java.util.concurrent.TimeoutException
 import kotlin.coroutines.CoroutineContext
 
 open class BaseViewModel(application: Application) : AndroidViewModel(application), CoroutineScope {
@@ -36,6 +38,9 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
 
         //加载失败
         val layoutDataError by lazy { SingleLiveEvent<String>() }
+
+        //加载超时
+        val layoutDataTimeout by lazy { SingleLiveEvent<Void>() }
     }
 
     override val coroutineContext: CoroutineContext
@@ -46,10 +51,12 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun coroutineExceptionHandler(
         isSendError: Boolean = false,
-        onError: (String) -> Unit = {}
+        onError: (String) -> Unit = {},
+        onException: (Throwable, String) -> Unit = {_,_ -> }
     ): CoroutineContext {
         return CoroutineExceptionHandler { _, exception ->
             exception.formatThrowable(getApplication()).let {
+                onException.invoke(exception,it)
                 //处理子协程错误
                 isSendError.ifTrue {
                     onErrorMsg.value = it
@@ -68,10 +75,13 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         onError: ((String) -> Unit)? = null,
         loadingTitle: String = loadingContent
     ): Job {
-        return launch(coroutineExceptionHandler(onError == null) {
-            onError?.invoke(it)
-            loadingChange.dismissDialog.call()
-        }) {
+        return launch(coroutineExceptionHandler(
+            isSendError = onError == null,
+            onError = {
+                onError?.invoke(it)
+                loadingChange.dismissDialog.call()
+            }
+        )) {
             loadingChange.showDialog.value = loadingTitle
             block()
             loadingChange.dismissDialog.call()
@@ -83,9 +93,12 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
      * @param block 需要执行的任务
      * @param onError 失败方法*/
     fun launch(block: suspend CoroutineScope.() -> Unit, onError: ((String) -> Unit)? = null): Job {
-        return launch(coroutineExceptionHandler(onError == null) {
-            onError?.invoke(it)
-        }) {
+        return launch(coroutineExceptionHandler(
+            isSendError = onError == null,
+            onError = {
+                onError?.invoke(it)
+            }
+        )) {
             block()
         }
     }
@@ -102,9 +115,12 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         startLoading: (() -> Unit) = {},
         finishLoading: (() -> Unit) = {}
     ): Job {
-        return launch(coroutineExceptionHandler(onError == null) {
-            onError?.invoke(it)
-        }) {
+        return launch(coroutineExceptionHandler(
+            isSendError = onError == null,
+            onError = {
+                onError?.invoke(it)
+            }
+        )) {
             isNetworkJob.ifTrue {
                 //检查网络，没有网络则抛出异常
                 NetworkStateManager.instance.mNetworkStateCallback.value?.isSuccess?.ifFalse {
@@ -126,9 +142,17 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         block: suspend CoroutineScope.() -> Unit,
         isNetworkJob: Boolean = true,
     ): Job {
-        return launch(coroutineExceptionHandler {
-            layoutDataChange.layoutDataError.value = it
-        }) {
+        return launch(coroutineExceptionHandler(
+            onException = { throwable, error ->
+                if (throwable is HttpException){
+                    (throwable.code() == 408).ifTrue { layoutDataChange.layoutDataTimeout.call() }
+                }else if(throwable is TimeoutException || throwable is TimeoutCancellationException){
+                    layoutDataChange.layoutDataTimeout.call()
+                }else{
+                    layoutDataChange.layoutDataError.value = error
+                }
+            }
+        )) {
             isNetworkJob.ifTrue {
                 //检查网络，没有网络则抛出异常
                 NetworkStateManager.instance.mNetworkStateCallback.value?.isSuccess?.ifFalse {

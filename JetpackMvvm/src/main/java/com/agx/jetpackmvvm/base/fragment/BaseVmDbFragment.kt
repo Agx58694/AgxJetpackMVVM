@@ -9,6 +9,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
+import com.agx.jetpackmvvm.ext.ifTrue
 import com.agx.jetpackmvvm.network.manager.NetState
 import com.agx.jetpackmvvm.network.manager.NetworkStateManager
 
@@ -96,10 +97,12 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
      * 是否需要懒加载
      */
     private fun onVisible() {
-        if (lifecycle.currentState == Lifecycle.State.STARTED && isFirst) {
-            lazyLoadData()
-            isFirst = false
-            createObserver()
+        if (lifecycle.currentState == Lifecycle.State.STARTED) {
+            (isFirst).ifTrue {
+                lazyLoadData()
+                isFirst = false
+                createObserver()
+            }
             NetworkStateManager.instance.mNetworkStateCallback.observe(viewLifecycleOwner, {
                 onNetworkStateChanged(it)
             })

@@ -20,14 +20,7 @@ class MainActivity : BaseDbActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun initVM(): MainViewModel = getViewModel()
 
-    override fun initView(savedInstanceState: Bundle?) {
-        //处理viewModel原始错误，所以viewModel的原始错误都会到这里，开发者可记录日子或上传服务器记录
-        //单activity放到这里，其他放到Application
-        setOnAppThrowableListener {
-            Toast.makeText(this,"原始错误：${it.message.toString()}",Toast.LENGTH_LONG).show()
-        }
-        loadingContent = "加载中"
-    }
+    override fun initView(savedInstanceState: Bundle?) {}
 
     override fun createObserver() {
         mViewModel.onErrorMsg.observe(this) {

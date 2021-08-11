@@ -1,6 +1,7 @@
 package com.agx.jetpackmvvm.ext
 
 import android.content.Context
+import android.database.sqlite.SQLiteConstraintException
 import com.agx.jetpackmvvm.CustomException
 import com.agx.jetpackmvvm.network.ApiErrorModel
 import com.agx.jetpackmvvm.network.ApiErrorType
@@ -20,6 +21,10 @@ import java.util.concurrent.TimeoutException
 private var onAppThrowableListener: (Throwable) -> Unit = {}
 
 /**
+ * 其他错误处理*/
+private var onOtherThrowableListener: (Throwable) -> String? = { null }
+
+/**
  * 自定义错误格式化方法*/
 private var onFormatThrowable: (Throwable, Context) -> String = { throwable, context ->
     formatThrowableDefault(throwable, context)
@@ -31,6 +36,10 @@ fun setOnAppThrowableListener(it: (Throwable) -> Unit) {
 
 fun setOnFormatThrowable(it: (Throwable, Context) -> String) {
     onFormatThrowable = it
+}
+
+fun setOnOtherThrowableListener(it: (Throwable) -> String?){
+    onOtherThrowableListener = it
 }
 
 /**
@@ -87,7 +96,14 @@ private fun formatThrowableDefault(it: Throwable, context: Context): String {
         is EOFException -> EOF_ERROR
         is TimeoutException -> TIME_OUT
         is TimeoutCancellationException -> TIME_OUT
-        else -> it.formatSystemThrowable()
+        else -> {
+            val errorMsg = onOtherThrowableListener.invoke(it)
+            if(errorMsg.isNullOrEmpty()){
+                it.formatSystemThrowable()
+            }else{
+                return errorMsg
+            }
+        }
     }
     return "${apiErrorType.code}  ${apiErrorType.getApiErrorModel(context).message}"
 }

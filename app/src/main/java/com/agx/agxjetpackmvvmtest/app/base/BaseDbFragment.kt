@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.agx.jetpackmvvm.base.fragment.BaseVmDbFragment
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
+import com.agx.jetpackmvvm.ext.ifTrue
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
@@ -92,6 +96,11 @@ abstract class BaseDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVm
             .setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL)
             .setTipWord(errorMessage)
             .create().apply {
+                lifecycle.addObserver(object : LifecycleEventObserver {
+                    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+                        (event == Lifecycle.Event.ON_DESTROY).ifTrue { dismiss() }
+                    }
+                })
                 lifecycleScope.launch(mViewModel.coroutineExceptionHandler()) {
                     delay(1500)
                     dismiss()
@@ -109,6 +118,11 @@ abstract class BaseDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVm
             .setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS)
             .setTipWord(successMessage)
             .create().apply {
+                lifecycle.addObserver(object : LifecycleEventObserver {
+                    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+                        (event == Lifecycle.Event.ON_DESTROY).ifTrue { dismiss() }
+                    }
+                })
                 lifecycleScope.launch(mViewModel.coroutineExceptionHandler()) {
                     delay(1500)
                     dismiss()

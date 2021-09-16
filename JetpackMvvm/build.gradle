@@ -45,10 +45,8 @@ dependencies {
     // Saved state module for ViewModel
     api "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1"
 
-    // Koin Android ViewModel features
-    api "org.koin:koin-androidx-viewmodel:2.2.2"
-    // Koin Android Experimental features
-    api "org.koin:koin-androidx-ext:2.2.2"
+    // Koin Android
+    api "io.insert-koin:koin-android:3.1.2"
 
     //navigation
     api "androidx.navigation:navigation-fragment-ktx:2.3.5"

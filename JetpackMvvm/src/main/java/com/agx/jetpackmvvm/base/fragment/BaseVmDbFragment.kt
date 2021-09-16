@@ -49,6 +49,10 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
     abstract fun createObserver()
 
     /**
+     * 创建view观察者*/
+    abstract fun createViewObserver()
+
+    /**
      * 界面数据加载中*/
     abstract fun layoutDataLoading()
 
@@ -80,6 +84,7 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
         registerDefUIChange()
         initView(savedInstanceState)
         onVisible()
+        createViewObserver()
         initListener()
     }
 

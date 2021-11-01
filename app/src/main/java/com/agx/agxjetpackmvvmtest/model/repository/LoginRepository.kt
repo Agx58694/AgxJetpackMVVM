@@ -7,9 +7,9 @@ import kotlinx.coroutines.delay
 import java.lang.RuntimeException
 
 class LoginRepository(private val apiService: ApiService) : BaseRepository() {
-    suspend fun getCode(success: (String) -> Unit, failure: (String) -> Unit = {}) {
+    suspend fun getCode(): String? {
         //这里执行模拟网络请求成功测试
-        apiService.baiduApi()?.let(success)
+        return apiService.baiduApi()
     }
     
     suspend fun getCodeError1(success: (String) -> Unit = {}, failure: (String) -> Unit){

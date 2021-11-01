@@ -14,7 +14,7 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
         LoginEnum.PHONE_LOGIN
 
     //登陆结果
-    val loginResult = MutableLiveData<Result<String>>()
+    val loginResult = MutableLiveData<Result<String?>>()
 
     //用户名
     var userPhone = MutableLiveData<String>()
@@ -115,9 +115,11 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
 
     fun login() = needLoadingLaunch(
         block = {
-            loginRepository.getCode(
-                success = { loginResult.value = Result.success(it) }
-            )
+            val result = loginRepository.getCode()
+            loginResult.value = Result.success(result)
+        },onError = {
+            onErrorMsg.value = it
+            loginResult.value = Result.failure(RuntimeException("失败"))
         }
     )
 

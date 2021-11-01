@@ -26,11 +26,13 @@ class StateFragment : BaseDbFragment<StateViewModel,FragmentStateBinding>() {
         mViewModel.loadData(1)
     }
 
-    override fun createObserver() {
-        mViewModel.onErrorMsg.observe(this){
+    override fun createObserver() {}
+
+    override fun createViewObserver() {
+        mViewModel.onErrorMsg.observe(viewLifecycleOwner){
             showErrorMessage(it)
         }
-        mViewModel.loadDataResult.observe(this){
+        mViewModel.loadDataResult.observe(viewLifecycleOwner){
             it.isNullOrEmpty().ifTrue {
                 mLoadService.showCallback(EmptyCallback::class.java)
             }.ifFalse {

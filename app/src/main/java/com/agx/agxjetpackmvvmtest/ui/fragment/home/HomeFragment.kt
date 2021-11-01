@@ -24,11 +24,13 @@ class HomeFragment : BaseDbFragment<HomeViewModel, FragmentHomeBinding>() {
 
     }
 
-    override fun createObserver() {
-        mViewModel.onErrorMsg.observe(this) {
+    override fun createObserver() {}
+
+    override fun createViewObserver() {
+        mViewModel.onErrorMsg.observe(viewLifecycleOwner) {
             showErrorMessage(it)
         }
-        dataStoreViewModel.userName.asLiveData().observe(this) {
+        dataStoreViewModel.userName.asLiveData().observe(viewLifecycleOwner) {
             showSuccessMessage(it.toString())
         }
     }

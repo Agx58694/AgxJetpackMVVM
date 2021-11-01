@@ -38,21 +38,23 @@ class DbFragment : BaseDbFragment<DbViewModel, FragmentDbBinding>() {
         }
     }
 
-    override fun createObserver() {
-        mViewModel.onErrorMsg.observe(this){
+    override fun createObserver() {}
+
+    override fun createViewObserver() {
+        mViewModel.onErrorMsg.observe(viewLifecycleOwner){
             showErrorMessage(it)
-            //如果有种情况是弹出错误，然后关闭该界面。因为使用了协程1.5秒关闭错误框。所以错误框未关闭时关闭该fm则会发生错误框无法关闭问题。下面方式可解决
+            //如果有种情况是弹出错误，然后关闭该界面。因为使用了协程1.5秒关闭错误框,所以错误框未关闭时关闭该fm则会发生错误框无法完全显示问题。下面方式可解决
 //            showErrorMessage(it){
 //                //关闭错误框后关闭该界面
 //                nav().popBackStack()
 //            }
         }
-        mViewModel.getAllUserResult.observe(this){ it ->
+        mViewModel.getAllUserResult.observe(viewLifecycleOwner){ it ->
             it.onSuccess {
                 showSuccessMessage(it.toString())
             }
         }
-        mViewModel.userInsertResult.observe(this){
+        mViewModel.userInsertResult.observe(viewLifecycleOwner){ it ->
             it.onSuccess {
                 showSuccessMessage("插入成功")
             }
@@ -60,7 +62,7 @@ class DbFragment : BaseDbFragment<DbViewModel, FragmentDbBinding>() {
                 showErrorMessage(it.message.toString())
             }
         }
-        mViewModel.testResult.observe(this){
+        mViewModel.testResult.observe(viewLifecycleOwner){
             showSuccessMessage(it.toString())
 //            这里会出现闪退
 //            lifecycleScope.launch {
@@ -74,7 +76,7 @@ class DbFragment : BaseDbFragment<DbViewModel, FragmentDbBinding>() {
 //                throw RuntimeException("这里尝试抛出一个错误")
 //            }
         }
-        dataStoreViewModel.userName.asLiveData().observe(this){
+        dataStoreViewModel.userName.asLiveData().observe(viewLifecycleOwner){
             showSuccessMessage(it.toString())
         }
     }

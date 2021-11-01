@@ -36,9 +36,11 @@ abstract class BaseDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVm
     abstract override fun lazyLoadData()
 
     /**
-     * 创建LiveData观察者 懒加载之后才会触发
+     * 创建LiveData观察者(不可修改ui组件等，跟随Fragment生命周期) 懒加载之后才会触发
      */
     override fun createObserver() {}
+
+    override fun createViewObserver() {}
 
     override fun layoutDataLoading() {}
 

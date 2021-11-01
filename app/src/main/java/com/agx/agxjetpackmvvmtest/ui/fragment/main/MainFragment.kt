@@ -35,8 +35,10 @@ class MainFragment : BaseDbFragment<MainViewModel, FragmentMainBinding>() {
 
     }
 
-    override fun createObserver() {
-        mViewModel.onErrorMsg.observe(this) {
+    override fun createObserver() {}
+
+    override fun createViewObserver() {
+        mViewModel.onErrorMsg.observe(viewLifecycleOwner) {
             showErrorMessage(it)
         }
     }

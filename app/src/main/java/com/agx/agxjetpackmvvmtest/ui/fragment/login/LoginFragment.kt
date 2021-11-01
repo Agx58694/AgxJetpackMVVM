@@ -26,15 +26,16 @@ class LoginFragment : BaseDbFragment<LoginViewModel, LoginFragmentBinding>() {
     }
 
     //由于vm生命周期当前页面不一样，而且部分情况下比当前页面还要长，所以vm返回结果必须通过带生命周期的liveData发送过来
-    override fun createObserver() {
-        super.createObserver()
-        mViewModel.onErrorMsg.observe(this) {
+    override fun createObserver() {}
+
+    override fun createViewObserver() {
+        mViewModel.onErrorMsg.observe(viewLifecycleOwner) {
             showErrorMessage(it)
         }
-        mViewModel.isShowTextPwd.observe(this) {
+        mViewModel.isShowTextPwd.observe(viewLifecycleOwner) {
             mDataBinding.editPassword.setSelection(mDataBinding.editPassword.text.length)
         }
-        mViewModel.loginResult.observe(this) { it ->
+        mViewModel.loginResult.observe(viewLifecycleOwner) { it ->
             it.onSuccess {
                 showSuccessMessage(it)
             }

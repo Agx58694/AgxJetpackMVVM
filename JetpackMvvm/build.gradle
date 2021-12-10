@@ -4,11 +4,10 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.dcendents.android-maven'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion 31
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 30
+        targetSdkVersion 31
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
@@ -34,23 +33,23 @@ dependencies {
 
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.core:core-ktx:1.7.0'
 
     //https://developer.android.google.cn/jetpack/androidx/releases/lifecycle
-    api 'androidx.lifecycle:lifecycle-common-java8:2.3.1'
+    api 'androidx.lifecycle:lifecycle-common-java8:2.4.0'
     // LiveData
-    api "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+    api "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
     // ViewModel
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
     // Saved state module for ViewModel
-    api "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1"
+    api "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.0"
 
     // Koin Android
     api "io.insert-koin:koin-android:3.1.2"
 
     //navigation
-    api "androidx.navigation:navigation-fragment-ktx:2.3.5"
-    api "androidx.navigation:navigation-ui-ktx:2.3.5"
+    api "androidx.navigation:navigation-fragment-ktx:2.4.0-beta02"
+    api "androidx.navigation:navigation-ui-ktx:2.4.0-beta02"
 
     //retrofit
     api "com.squareup.retrofit2:retrofit:2.9.0"

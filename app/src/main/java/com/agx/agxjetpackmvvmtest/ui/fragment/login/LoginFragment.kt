@@ -37,7 +37,9 @@ class LoginFragment : BaseDbFragment<LoginViewModel, LoginFragmentBinding>() {
         }
         mViewModel.loginResult.observe(viewLifecycleOwner) { it ->
             it.onSuccess {
-                showSuccessMessage(it)
+                if (it != null) {
+                    showSuccessMessage(it)
+                }
             }
         }
     }

@@ -6,9 +6,6 @@ import com.agx.agxjetpackmvvmtest.R
 import com.agx.agxjetpackmvvmtest.app.base.BaseDbFragment
 import com.agx.agxjetpackmvvmtest.databinding.FragmentStateBinding
 import com.agx.agxjetpackmvvmtest.ui.custom.*
-import com.agx.jetpackmvvm.ext.ifFalse
-import com.agx.jetpackmvvm.ext.ifTrue
-import com.agx.jetpackmvvm.network.manager.NetState
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class StateFragment : BaseDbFragment<StateViewModel,FragmentStateBinding>() {
@@ -33,9 +30,9 @@ class StateFragment : BaseDbFragment<StateViewModel,FragmentStateBinding>() {
             showErrorMessage(it)
         }
         mViewModel.loadDataResult.observe(viewLifecycleOwner){
-            it.isNullOrEmpty().ifTrue {
+            if(it.isNullOrEmpty()) {
                 mLoadService.showCallback(EmptyCallback::class.java)
-            }.ifFalse {
+            }else {
                 mLoadService.showSuccess()
             }
         }
@@ -57,11 +54,11 @@ class StateFragment : BaseDbFragment<StateViewModel,FragmentStateBinding>() {
         mViewModel.loadData(1)
     }
 
-    override fun onNetworkStateChanged(netState: NetState) {
-        netState.isSuccess.ifFalse {
-            mLoadService.showCallback(NoNetworkCallback::class.java)
-        }.ifTrue {
+    override fun onNetworkStateChanged(netState: Boolean) {
+        if(netState) {
             mViewModel.loadData(1)
+        }else {
+            mLoadService.showCallback(NoNetworkCallback::class.java)
         }
     }
 

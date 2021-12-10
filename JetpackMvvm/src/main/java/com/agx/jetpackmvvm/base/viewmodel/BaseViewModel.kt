@@ -6,9 +6,7 @@ import androidx.annotation.CallSuper
 import androidx.lifecycle.AndroidViewModel
 import com.agx.jetpackmvvm.configure.loadingContent
 import com.agx.jetpackmvvm.ext.formatThrowable
-import com.agx.jetpackmvvm.ext.ifFalse
-import com.agx.jetpackmvvm.ext.ifTrue
-import com.agx.jetpackmvvm.network.manager.NetworkStateManager
+import com.agx.jetpackmvvm.startup.ConnectionInitializer
 import com.agx.jetpackmvvm.state.SingleLiveEvent
 import kotlinx.coroutines.*
 import retrofit2.HttpException
@@ -52,13 +50,13 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     fun coroutineExceptionHandler(
         isSendError: Boolean = false,
         onError: (String) -> Unit = {},
-        onException: (Throwable, String) -> Unit = {_,_ -> }
+        onException: (Throwable, String) -> Unit = { _, _ -> }
     ): CoroutineContext {
         return CoroutineExceptionHandler { _, exception ->
             exception.formatThrowable(getApplication()).let {
-                onException.invoke(exception,it)
+                onException.invoke(exception, it)
                 //处理子协程错误
-                isSendError.ifTrue {
+                if (isSendError) {
                     onErrorMsg.value = it
                 }
                 onError.invoke(it)
@@ -121,9 +119,9 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
                 onError?.invoke(it)
             }
         )) {
-            isNetworkJob.ifTrue {
+            if (isNetworkJob) {
                 //检查网络，没有网络则抛出异常
-                NetworkStateManager.instance.mNetworkStateCallback.value?.isSuccess?.ifFalse {
+                if (ConnectionInitializer.connectionLiveData.value == false) {
                     //不处理，直接返回。该错误逻辑请重写onNetworkStateChanged处理
                     return@launch
                 }
@@ -144,18 +142,20 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     ): Job {
         return launch(coroutineExceptionHandler(
             onException = { throwable, error ->
-                if (throwable is HttpException){
-                    (throwable.code() == 408).ifTrue { layoutDataChange.layoutDataTimeout.call() }
-                }else if(throwable is TimeoutException || throwable is TimeoutCancellationException){
+                if (throwable is HttpException) {
+                    if (throwable.code() == 408) {
+                        layoutDataChange.layoutDataTimeout.call()
+                    }
+                } else if (throwable is TimeoutException || throwable is TimeoutCancellationException) {
                     layoutDataChange.layoutDataTimeout.call()
-                }else{
+                } else {
                     layoutDataChange.layoutDataError.value = error
                 }
             }
         )) {
-            isNetworkJob.ifTrue {
+            if (isNetworkJob) {
                 //检查网络，没有网络则抛出异常
-                NetworkStateManager.instance.mNetworkStateCallback.value?.isSuccess?.ifFalse {
+                if (ConnectionInitializer.connectionLiveData.value == false) {
                     //不处理，直接返回。该错误逻辑请重写onNetworkStateChanged处理
                     return@launch
                 }

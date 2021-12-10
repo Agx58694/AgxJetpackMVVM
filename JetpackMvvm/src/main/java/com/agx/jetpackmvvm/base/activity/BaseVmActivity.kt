@@ -3,8 +3,7 @@ package com.agx.jetpackmvvm.base.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
-import com.agx.jetpackmvvm.network.manager.NetState
-import com.agx.jetpackmvvm.network.manager.NetworkStateManager
+import com.agx.jetpackmvvm.startup.ConnectionInitializer
 
 abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
 
@@ -32,8 +31,7 @@ abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
         registerUiChange()
         initView(savedInstanceState)
         createObserver()
-        lifecycle.addObserver(NetworkStateManager.instance)
-        NetworkStateManager.instance.mNetworkStateCallback.observe(this, {
+        ConnectionInitializer.connectionLiveData.observe(this, {
             onNetworkStateChanged(it)
         })
     }
@@ -55,5 +53,5 @@ abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
     /**
      * 网络变化监听 子类重写
      */
-    open fun onNetworkStateChanged(netState: NetState) {}
+    open fun onNetworkStateChanged(netState: Boolean) {}
 }

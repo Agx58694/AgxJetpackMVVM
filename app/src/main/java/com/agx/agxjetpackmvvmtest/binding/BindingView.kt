@@ -1,4 +1,4 @@
-package com.agx.jetpackmvvm.binding
+package com.agx.agxjetpackmvvmtest.binding
 
 import android.text.Editable
 import android.text.TextWatcher

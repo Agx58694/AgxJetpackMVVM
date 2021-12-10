@@ -5,8 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
-import com.agx.jetpackmvvm.network.manager.NetState
-import com.agx.jetpackmvvm.network.manager.NetworkStateManager
+import com.agx.jetpackmvvm.startup.ConnectionInitializer
 
 abstract class BaseVmDbActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompatActivity() {
 
@@ -36,8 +35,7 @@ abstract class BaseVmDbActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
         registerUiChange()
         initView(savedInstanceState)
         createObserver()
-        lifecycle.addObserver(NetworkStateManager.instance)
-        NetworkStateManager.instance.mNetworkStateCallback.observe(this, {
+        ConnectionInitializer.connectionLiveData.observe(this, {
             onNetworkStateChanged(it)
         })
     }
@@ -65,5 +63,5 @@ abstract class BaseVmDbActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
     /**
      * 网络变化监听 子类重写
      */
-    open fun onNetworkStateChanged(netState: NetState) {}
+    open fun onNetworkStateChanged(netState: Boolean) {}
 }

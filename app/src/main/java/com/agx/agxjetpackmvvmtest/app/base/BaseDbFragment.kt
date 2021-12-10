@@ -11,16 +11,17 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.agx.jetpackmvvm.base.fragment.BaseVmDbFragment
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
-import com.agx.jetpackmvvm.ext.ifTrue
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-abstract class BaseDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmDbFragment<VM, DB>() {
+abstract class BaseDbFragment<VM : BaseViewModel, DB : ViewDataBinding> :
+    BaseVmDbFragment<VM, DB>() {
     private var tipDialog: QMUITipDialog? = null
     lateinit var mLoadService: LoadService<*>
+
     /**
      * 当前Fragment绑定的视图布局
      */
@@ -55,9 +56,10 @@ abstract class BaseDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVm
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mLoadService = LoadSir.getDefault().register(super.onCreateView(inflater, container, savedInstanceState)){
-            onReload(it)
-        }
+        mLoadService = LoadSir.getDefault()
+            .register(super.onCreateView(inflater, container, savedInstanceState)) {
+                onReload(it)
+            }
         return mLoadService.loadLayout
     }
 
@@ -100,7 +102,9 @@ abstract class BaseDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVm
             .create().apply {
                 lifecycle.addObserver(object : LifecycleEventObserver {
                     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-                        (event == Lifecycle.Event.ON_DESTROY).ifTrue { dismiss() }
+                        if (event == Lifecycle.Event.ON_DESTROY) {
+                            dismiss()
+                        }
                     }
                 })
                 lifecycleScope.launch(mViewModel.coroutineExceptionHandler()) {
@@ -122,7 +126,9 @@ abstract class BaseDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVm
             .create().apply {
                 lifecycle.addObserver(object : LifecycleEventObserver {
                     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-                        (event == Lifecycle.Event.ON_DESTROY).ifTrue { dismiss() }
+                        if (event == Lifecycle.Event.ON_DESTROY) {
+                            dismiss()
+                        }
                     }
                 })
                 lifecycleScope.launch(mViewModel.coroutineExceptionHandler()) {

@@ -1,17 +1,12 @@
 package com.agx.agxjetpackmvvmtest.ui.activity
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.navigation.Navigation
 import com.agx.agxjetpackmvvmtest.R
 import com.agx.agxjetpackmvvmtest.app.base.BaseDbActivity
 import com.agx.agxjetpackmvvmtest.databinding.ActivityMainBinding
 import com.agx.agxjetpackmvvmtest.ui.fragment.main.MainViewModel
-import com.agx.jetpackmvvm.configure.loadingContent
-import com.agx.jetpackmvvm.ext.setOnAppThrowableListener
-import com.agx.jetpackmvvm.ext.setOnFormatThrowable
 import com.blankj.utilcode.util.ToastUtils
-import com.agx.jetpackmvvm.network.manager.NetState
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainActivity : BaseDbActivity<MainViewModel, ActivityMainBinding>() {
@@ -32,10 +27,10 @@ class MainActivity : BaseDbActivity<MainViewModel, ActivityMainBinding>() {
         }
     }
 
-    override fun onNetworkStateChanged(netState: NetState) {
+    override fun onNetworkStateChanged(netState: Boolean) {
         super.onNetworkStateChanged(netState)
         //网络状态变更，这里可以根据网络状态展示ui
-        if (netState.isSuccess) {
+        if (netState) {
             ToastUtils.showShort("有网络")
         } else {
             ToastUtils.showShort("没有网络")

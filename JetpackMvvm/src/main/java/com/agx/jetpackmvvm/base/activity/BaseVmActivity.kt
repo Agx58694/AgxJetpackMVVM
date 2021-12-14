@@ -3,7 +3,6 @@ package com.agx.jetpackmvvm.base.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
-import com.agx.jetpackmvvm.startup.ConnectionInitializer
 
 abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
 
@@ -31,9 +30,6 @@ abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
         registerUiChange()
         initView(savedInstanceState)
         createObserver()
-        ConnectionInitializer.connectionLiveData.observe(this, {
-            onNetworkStateChanged(it)
-        })
     }
 
     /**

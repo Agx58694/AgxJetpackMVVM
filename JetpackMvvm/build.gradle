@@ -62,4 +62,6 @@ dependencies {
     api "androidx.room:room-runtime:2.3.0"
     // optional - Kotlin Extensions and Coroutines support for Room
     api "androidx.room:room-ktx:2.3.0"
+    //startup
+    api "androidx.startup:startup-runtime:1.1.0"
 }

@@ -35,6 +35,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_mainFragment_to_sharedElementTransitionAFragment"
+            app:destination="@id/sharedElementTransitionAFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -60,4 +63,16 @@
         android:id="@+id/stateFragment"
         android:name="com.agx.agxjetpackmvvmtest.ui.fragment.state.StateFragment"
         android:label="StateFragment" />
+    <fragment
+        android:id="@+id/sharedElementTransitionAFragment"
+        android:name="com.agx.agxjetpackmvvmtest.ui.fragment.shared.SharedElementTransitionAFragment"
+        android:label="SharedElementTransitionAFragment" >
+        <action
+            android:id="@+id/action_sharedElementTransitionAFragment_to_sharedElementTransitionBFragment"
+            app:destination="@id/sharedElementTransitionBFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sharedElementTransitionBFragment"
+        android:name="com.agx.agxjetpackmvvmtest.ui.fragment.shared.SharedElementTransitionBFragment"
+        android:label="SharedElementTransitionBFragment" />
 </navigation>

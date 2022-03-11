@@ -47,8 +47,8 @@ dependencies {
     api "io.insert-koin:koin-android:3.1.2"
 
     //navigation
-    api "androidx.navigation:navigation-fragment-ktx:2.4.0-beta02"
-    api "androidx.navigation:navigation-ui-ktx:2.4.0-beta02"
+    api "androidx.navigation:navigation-fragment-ktx:2.4.0"
+    api "androidx.navigation:navigation-ui-ktx:2.4.0"
 
     //retrofit
     api "com.squareup.retrofit2:retrofit:2.9.0"
@@ -59,9 +59,9 @@ dependencies {
     api 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 
     //Room
-    api "androidx.room:room-runtime:2.3.0"
+    api "androidx.room:room-runtime:2.4.1"
     // optional - Kotlin Extensions and Coroutines support for Room
-    api "androidx.room:room-ktx:2.3.0"
+    api "androidx.room:room-ktx:2.4.1"
     //startup
     api "androidx.startup:startup-runtime:1.1.0"
 }

@@ -1,5 +1,6 @@
 package com.agx.agxjetpackmvvmtest.ui.activity
 
+import android.hardware.Camera
 import android.os.Bundle
 import androidx.navigation.Navigation
 import com.agx.agxjetpackmvvmtest.R

@@ -13,6 +13,7 @@ import com.agx.agxjetpackmvvmtest.ui.fragment.db.DbViewModel
 import com.agx.agxjetpackmvvmtest.ui.fragment.home.HomeViewModel
 import com.agx.agxjetpackmvvmtest.ui.fragment.login.LoginViewModel
 import com.agx.agxjetpackmvvmtest.ui.fragment.main.MainViewModel
+import com.agx.agxjetpackmvvmtest.ui.fragment.shared.SharedElementTransitionVM
 import com.agx.agxjetpackmvvmtest.ui.fragment.state.StateViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -24,6 +25,7 @@ val viewModelModule = module {
     viewModel { HomeViewModel(get()) }
     viewModel { DbViewModel(get(), get()) }
     viewModel { StateViewModel(get()) }
+    viewModel { SharedElementTransitionVM(get()) }
 }
 
 val repositoryModule = module {

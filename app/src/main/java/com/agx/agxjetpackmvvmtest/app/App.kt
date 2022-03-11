@@ -4,8 +4,12 @@ import android.app.Application
 import android.content.Context
 import android.database.sqlite.SQLiteConstraintException
 import android.widget.Toast
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import com.agx.agxjetpackmvvmtest.di.appModule
 import com.agx.agxjetpackmvvmtest.ui.custom.*
+import com.agx.agxjetpackmvvmtest.work.AgxWorker
 import com.agx.jetpackmvvm.configure.loadingContent
 import com.agx.jetpackmvvm.ext.setOnAppThrowableListener
 import com.agx.jetpackmvvm.ext.setOnOtherThrowableListener
@@ -28,6 +32,7 @@ class App : Application() {
             androidContext(this@App)
             modules(appModule)
         }
+        initWork()
         initListener()
         initLoadSir()
     }
@@ -53,5 +58,15 @@ class App : Application() {
             .addCallback(NoNetworkCallback())
             .addCallback(TimeoutCallback())
             .commit()
+    }
+
+    private fun initWork(){
+        val agxWorkRequest: WorkRequest =
+            OneTimeWorkRequestBuilder<AgxWorker>()
+                .build()
+        WorkManager
+            .getInstance(this)
+            .enqueue(agxWorkRequest)
+
     }
 }

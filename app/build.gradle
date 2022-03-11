@@ -72,14 +72,14 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation project(path: ':JetpackMvvm')
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     //https://github.com/CymChad/BaseRecyclerViewAdapterHelper
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7'
     //状态界面管理库 https://github.com/KingJA/LoadSir
     implementation 'com.kingja.loadsir:loadsir:1.3.8'
     //glide
@@ -87,22 +87,24 @@ dependencies {
     //屏幕适配
     implementation 'me.jessyan:autosize:1.2.1'
     //util
-    implementation 'com.blankj:utilcodex:1.30.5'
+    implementation 'com.blankj:utilcodex:1.30.6'
     //验证码输入框
     implementation 'com.justkiddingbaby:vercodeedittext:1.1.0'
     //https://github.com/li-xiaojun/XPopup
     implementation 'com.lxj:xpopup:2.2.23'
     //https://github.com/airbnb/lottie-android
-    implementation "com.airbnb.android:lottie:3.7.0"
+    implementation "com.airbnb.android:lottie:4.1.0"
     // 基础依赖包，必须要依赖 https://github.com/gyf-dev/ImmersionBar
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
     // fragment快速实现（可选）https://github.com/gyf-dev/ImmersionBar
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
     //QMUI  https://qmuiteam.com/android/get-started
-    implementation 'com.qmuiteam:qmui:2.0.0-alpha10'
+    implementation 'com.qmuiteam:qmui:2.0.1'
     //room
-    kapt "androidx.room:room-compiler:2.3.0"
+    kapt "androidx.room:room-compiler:2.4.1"
     //DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+    // Kotlin + coroutines
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
 }

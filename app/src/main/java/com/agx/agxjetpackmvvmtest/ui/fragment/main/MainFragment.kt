@@ -25,6 +25,9 @@ class MainFragment : BaseDbFragment<MainViewModel, FragmentMainBinding>() {
         mDataBinding.button12.setOnClickListener {
             nav()?.navigate(R.id.action_mainFragment_to_stateFragment)
         }
+        mDataBinding.button15.setOnClickListener {
+            nav()?.navigate(R.id.action_mainFragment_to_sharedElementTransitionAFragment)
+        }
     }
 
     fun testData(){

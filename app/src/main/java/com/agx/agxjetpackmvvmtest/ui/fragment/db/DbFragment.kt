@@ -25,7 +25,7 @@ class DbFragment : BaseDbFragment<DbViewModel, FragmentDbBinding>() {
 
     override fun initListener() {
         mDataBinding.button4.setOnClickListener {
-            mViewModel.insert(UserEntity(realName = "周星星",nikeName = "周洁轮",age = 22))
+            mViewModel.insert(UserEntity(id = 1,realName = "周星星",nikeName = "周洁轮",age = 22))
         }
         mDataBinding.button5.setOnClickListener {
             mViewModel.getAllUser()

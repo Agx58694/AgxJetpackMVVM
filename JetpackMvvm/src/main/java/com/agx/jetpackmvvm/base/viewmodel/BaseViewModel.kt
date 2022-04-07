@@ -168,6 +168,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     @CallSuper
     override fun onCleared() {
         rootJob.cancel()
+        this.cancel()
         super.onCleared()
     }
 

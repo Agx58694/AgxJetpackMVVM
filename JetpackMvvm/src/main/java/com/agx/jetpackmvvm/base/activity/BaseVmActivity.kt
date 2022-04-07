@@ -3,6 +3,7 @@ package com.agx.jetpackmvvm.base.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.agx.jetpackmvvm.base.viewmodel.BaseViewModel
+import com.agx.jetpackmvvm.startup.ConnectionInitializer
 
 abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
 
@@ -30,7 +31,9 @@ abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
         registerUiChange()
         initView(savedInstanceState)
         createObserver()
-        finish()
+        ConnectionInitializer.connectionLiveData.observe(this) {
+            onNetworkStateChanged(it)
+        }
     }
 
     /**
@@ -38,13 +41,13 @@ abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
      */
     private fun registerUiChange() {
         //显示弹窗
-        mViewModel.loadingChange.showDialog.observe(this, {
+        mViewModel.loadingChange.showDialog.observe(this) {
             showLoading(it)
-        })
+        }
         //关闭弹窗
-        mViewModel.loadingChange.dismissDialog.observe(this, {
+        mViewModel.loadingChange.dismissDialog.observe(this) {
             dismissLoading()
-        })
+        }
     }
 
     /**

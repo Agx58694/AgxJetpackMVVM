@@ -66,13 +66,22 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
 
     abstract fun dismissLoading()
 
+    /**
+     * 网络变化监听 子类重写
+     */
+    open fun onNetworkStateChanged(netState: Boolean) {}
+
+    /**
+     * 初始化监听器*/
+    open fun initListener() {}
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         mDataBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
-        mDataBinding.lifecycleOwner = this
+        mDataBinding.lifecycleOwner = viewLifecycleOwner
         return mDataBinding.root
     }
 
@@ -132,13 +141,4 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Frag
             layoutDataTimeout()
         }
     }
-
-    /**
-     * 网络变化监听 子类重写
-     */
-    open fun onNetworkStateChanged(netState: Boolean) {}
-
-    /**
-     * 初始化监听器*/
-    open fun initListener() {}
 }

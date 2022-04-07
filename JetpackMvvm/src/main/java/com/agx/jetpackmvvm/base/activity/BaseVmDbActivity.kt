@@ -35,9 +35,9 @@ abstract class BaseVmDbActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
         registerUiChange()
         initView(savedInstanceState)
         createObserver()
-        ConnectionInitializer.connectionLiveData.observe(this, {
+        ConnectionInitializer.connectionLiveData.observe(this) {
             onNetworkStateChanged(it)
-        })
+        }
     }
 
     /**
@@ -52,12 +52,12 @@ abstract class BaseVmDbActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
      * 注册 UI 事件
      */
     private fun registerUiChange() {
-        mViewModel.loadingChange.showDialog.observe(this, {
+        mViewModel.loadingChange.showDialog.observe(this) {
             showLoading(it)
-        })
-        mViewModel.loadingChange.dismissDialog.observe(this, {
+        }
+        mViewModel.loadingChange.dismissDialog.observe(this) {
             dismissLoading()
-        })
+        }
     }
 
     /**

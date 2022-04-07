@@ -52,6 +52,12 @@ private fun Throwable.formatSystemThrowable(): ApiErrorType {
 }
 
 /**
+ * 主动发送系统错误*/
+fun Throwable.sendSystemThrowable(){
+    onAppThrowableListener.invoke(this)
+}
+
+/**
  * 错误格式化扩展函数*/
 fun Throwable.formatThrowable(context: Context): String {
     return onFormatThrowable(this, context)
@@ -98,7 +104,7 @@ private fun formatThrowableDefault(it: Throwable, context: Context): String {
         is TimeoutCancellationException -> TIME_OUT
         else -> {
             val errorMsg = onOtherThrowableListener.invoke(it)
-            if(errorMsg.isNullOrEmpty()){
+            if(errorMsg == null){
                 it.formatSystemThrowable()
             }else{
                 return errorMsg

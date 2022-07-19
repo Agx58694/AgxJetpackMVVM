@@ -22,7 +22,7 @@ afterEvaluate{
             from(components.getByName("release"))
             groupId = "com.github.Agx58694"
             artifactId = "AgxJetpackMVVM"
-            version = "1.0.7-rc2"
+            version = "1.0.7-rc3"
         }
     }
 }

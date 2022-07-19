@@ -49,8 +49,8 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun coroutineExceptionHandler(
         isSendError: Boolean = false,
-        onError: (String) -> Unit = {},
-        onException: (Throwable, String) -> Unit = { _, _ -> }
+        onError: (String?) -> Unit = {},
+        onException: (Throwable, String?) -> Unit = { _, _ -> }
     ): CoroutineContext {
         return CoroutineExceptionHandler { _, exception ->
             exception.formatThrowable(getApplication()).let {
@@ -70,7 +70,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
      * @param onError 失败方法*/
     fun needLoadingLaunch(
         block: suspend CoroutineScope.() -> Unit,
-        onError: ((String) -> Unit)? = null,
+        onError: ((String?) -> Unit)? = null,
         loadingTitle: String = loadingContent
     ): Job {
         return launch(coroutineExceptionHandler(
@@ -90,7 +90,10 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
      * 普通协程任务
      * @param block 需要执行的任务
      * @param onError 失败方法*/
-    fun launch(block: suspend CoroutineScope.() -> Unit, onError: ((String) -> Unit)? = null): Job {
+    fun launch(
+        block: suspend CoroutineScope.() -> Unit,
+        onError: ((String?) -> Unit)? = null
+    ): Job {
         return launch(coroutineExceptionHandler(
             isSendError = onError == null,
             onError = {
@@ -108,7 +111,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
      * finishLoading 反馈结束工作的函数*/
     fun loadingBackLaunch(
         block: suspend CoroutineScope.() -> Unit,
-        onError: ((String) -> Unit)? = null,
+        onError: ((String?) -> Unit)? = null,
         isNetworkJob: Boolean = true,
         startLoading: (() -> Unit) = {},
         finishLoading: (() -> Unit) = {}

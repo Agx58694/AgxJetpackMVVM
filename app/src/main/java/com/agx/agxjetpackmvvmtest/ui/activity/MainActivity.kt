@@ -7,6 +7,7 @@ import com.agx.agxjetpackmvvmtest.R
 import com.agx.agxjetpackmvvmtest.app.base.BaseDbActivity
 import com.agx.agxjetpackmvvmtest.databinding.ActivityMainBinding
 import com.agx.agxjetpackmvvmtest.ui.fragment.main.MainViewModel
+import com.agx.jetpackmvvm.ext.sendSystemThrowable
 import com.blankj.utilcode.util.ToastUtils
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -26,6 +27,7 @@ class MainActivity : BaseDbActivity<MainViewModel, ActivityMainBinding>() {
             result.onSuccess { showSuccessMessage(it) }
             result.onFailure { showErrorMessage(it.message.toString()) }
         }
+        RuntimeException("发送错误").sendSystemThrowable()
     }
 
     override fun onNetworkStateChanged(netState: Boolean) {

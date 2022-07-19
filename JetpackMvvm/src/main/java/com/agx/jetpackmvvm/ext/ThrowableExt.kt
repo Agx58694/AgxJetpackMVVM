@@ -1,7 +1,6 @@
 package com.agx.jetpackmvvm.ext
 
 import android.content.Context
-import android.database.sqlite.SQLiteConstraintException
 import com.agx.jetpackmvvm.CustomException
 import com.agx.jetpackmvvm.network.ApiErrorModel
 import com.agx.jetpackmvvm.network.ApiErrorType
@@ -26,7 +25,7 @@ private var onOtherThrowableListener: (Throwable) -> String? = { null }
 
 /**
  * 自定义错误格式化方法*/
-private var onFormatThrowable: (Throwable, Context) -> String = { throwable, context ->
+private var onFormatThrowable: (Throwable, Context) -> String? = { throwable, context ->
     formatThrowableDefault(throwable, context)
 }
 
@@ -59,15 +58,15 @@ fun Throwable.sendSystemThrowable(){
 
 /**
  * 错误格式化扩展函数*/
-fun Throwable.formatThrowable(context: Context): String {
+fun Throwable.formatThrowable(context: Context): String? {
     return onFormatThrowable(this, context)
 }
 
 /**
  * 如不自定义错误格式化方法，默认使用该方法处理*/
-private fun formatThrowableDefault(it: Throwable, context: Context): String {
+private fun formatThrowableDefault(it: Throwable, context: Context): String? {
     if (it is CustomException) {
-        return it.message.toString()
+        return it.message
     }
     if (it is HttpException) {
         val apiErrorModel: ApiErrorModel = when (it.code()) {

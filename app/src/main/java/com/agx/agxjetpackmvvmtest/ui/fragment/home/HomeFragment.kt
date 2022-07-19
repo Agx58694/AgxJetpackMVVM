@@ -21,7 +21,6 @@ class HomeFragment : BaseDbFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     override fun lazyLoadData() {
-
     }
 
     override fun createObserver() {}

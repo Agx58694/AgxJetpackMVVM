@@ -45,10 +45,10 @@ abstract class BaseRetrofitClient {
 
     private class StringConverterFactory : Converter.Factory() {
         override fun responseBodyConverter(
-            inType: Type?,
-            inAnnotations: Array<Annotation>?,
-            inRetrofit: Retrofit?
-        ): Converter<ResponseBody, String>? {
+            inType: Type,
+            inAnnotations: Array<out Annotation>,
+            inRetrofit: Retrofit
+        ): Converter<ResponseBody, *>? {
             return if (String::class.java == inType) {
                 Converter { inValue -> inValue.string().replace("\"", "") }
             } else null

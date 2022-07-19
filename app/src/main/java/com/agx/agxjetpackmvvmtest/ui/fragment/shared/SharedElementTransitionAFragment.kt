@@ -25,6 +25,9 @@ class SharedElementTransitionAFragment : BaseDbFragment<SharedElementTransitionV
                 extras
             )
         }
+        mDataBinding.imageView.setOnClickListener {
+            nav()?.popBackStack()
+        }
     }
 
     override fun lazyLoadData() {

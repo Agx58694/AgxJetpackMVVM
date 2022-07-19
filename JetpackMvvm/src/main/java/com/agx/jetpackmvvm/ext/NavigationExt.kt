@@ -6,12 +6,8 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 
-fun Fragment.nav(): NavController? {
-    return if (isAdded) {
-        NavHostFragment.findNavController(this)
-    } else {
-        null
-    }
+fun Fragment.nav(): NavController {
+    return NavHostFragment.findNavController(this)
 }
 
 fun nav(view: View): NavController {

@@ -74,5 +74,11 @@
     <fragment
         android:id="@+id/sharedElementTransitionBFragment"
         android:name="com.agx.agxjetpackmvvmtest.ui.fragment.shared.SharedElementTransitionBFragment"
-        android:label="SharedElementTransitionBFragment" />
+        android:label="SharedElementTransitionBFragment" >
+        <action
+            android:id="@+id/action_sharedElementTransitionBFragment_to_sharedElementTransitionAFragment2"
+            app:destination="@id/sharedElementTransitionAFragment"
+            app:popUpTo="@id/sharedElementTransitionAFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>

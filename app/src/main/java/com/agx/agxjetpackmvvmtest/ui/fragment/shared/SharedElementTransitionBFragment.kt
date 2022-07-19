@@ -18,7 +18,7 @@ class SharedElementTransitionBFragment : BaseDbFragment<SharedElementTransitionV
         sharedElementEnterTransition = TransitionInflater.from(requireContext())
             .inflateTransition(R.transition.image_shared_element_transition)
         mDataBinding.imageCover.setOnClickListener {
-            nav()?.popBackStack()
+            nav()?.navigate(R.id.action_sharedElementTransitionBFragment_to_sharedElementTransitionAFragment2)
         }
     }
 

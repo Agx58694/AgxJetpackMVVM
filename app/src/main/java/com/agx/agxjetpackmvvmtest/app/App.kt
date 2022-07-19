@@ -41,6 +41,9 @@ class App : Application() {
         //处理viewModel原始错误，所以viewModel的原始错误都会到这里，开发者可记录日子或上传服务器记录
         setOnAppThrowableListener {
             Toast.makeText(this,"原始错误：${it.message.toString()}", Toast.LENGTH_LONG).show()
+            it.addSuppressed(Throwable().apply {
+                message
+            })
         }
         setOnOtherThrowableListener {
             when(it){

@@ -1,0 +1,53 @@
+# Kotlin/Java编译缓存
+*.class
+*.jar
+*.war
+*.ear
+
+# Gradle Wrapper
+.gradle/
+gradle-wrapper.jar
+gradle-wrapper.properties
+
+# Android Studio
+.idea/
+*.iml
+*.iws
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+# Android build outputs
+/build/
+captures/
+outputs/
+
+# Local config (sdk path, keystore, etc)
+local.properties
+
+# Log files
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Google Services (json文件有时包含敏感信息)
+google-services.json
+
+# NDK build
+.externalNativeBuild/
+.cxx/
+
+# Crashlytics and Firebase
+firebase-debug.log
+
+# JetBrains IDEs config files
+*.iml
+*.ipr
+*.iws
+
+# Others
+*.keystore

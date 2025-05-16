@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.agx.jetpackmvvmtest.ui.fragment.login.LoginViewModel" />
+
+        <variable
+            name="clickProxy"
+            type="com.agx.jetpackmvvmtest.ui.fragment.login.LoginFragment.ClickProxy" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageIdCardPositive"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="150dp"
+            android:src="@drawable/account"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/editPhone"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="35dp"
+            android:background="@null"
+            android:hint="@string/input_phone"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:text="@={viewModel.userPhone}"
+            android:textColor="@color/text_black3"
+            android:textColorHint="@color/edit_gainsboro"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageIdCardPositive"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageIdCardPositive"
+            app:layout_constraintTop_toTopOf="@+id/imageIdCardPositive"
+            binding:afterTextChanged="@{viewModel::checkInputData}" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="13dp"
+            android:background="@color/view_bg240"
+            app:layout_constraintEnd_toEndOf="@+id/editPhone"
+            app:layout_constraintStart_toStartOf="@+id/imageIdCardPositive"
+            app:layout_constraintTop_toBottomOf="@+id/imageIdCardPositive" />
+
+        <ImageView
+            android:id="@+id/imagePassword"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/password"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="@+id/imageIdCardPositive"
+            app:layout_constraintTop_toBottomOf="@+id/imageIdCardPositive"
+            binding:visibility="@{viewModel.isShowPassword}"
+            tools:ignore="MissingConstraints" />
+
+
+        <EditText
+            android:id="@+id/editPassword"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="35dp"
+            android:background="@null"
+            android:hint="@string/input_password"
+            android:inputType="textPassword|text"
+            android:maxLength="14"
+            android:maxLines="1"
+            android:text="@={viewModel.password}"
+            android:textColor="@color/text_black3"
+            android:textColorHint="@color/edit_gainsboro"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imagePassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imagePassword"
+            app:layout_constraintTop_toTopOf="@+id/imagePassword"
+            binding:afterTextChanged="@{viewModel::isShowPasswordImg}"
+            binding:isShowTextPwd="@{viewModel.isShowTextPwd}"
+            binding:visibility="@{viewModel.isShowEditPassword}" />
+
+        <CheckBox
+            android:id="@+id/checkPassword"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="10dp"
+            android:button="@drawable/check_password_selector"
+            android:onClick="@{() -> viewModel.clickCheckPassword()}"
+            android:padding="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editPassword"
+            app:layout_constraintEnd_toEndOf="@+id/editPassword"
+            app:layout_constraintTop_toTopOf="@+id/editPassword"
+            binding:visibility="@{viewModel.isShowCheckPassword}" />
+
+
+        <ImageView
+            android:id="@+id/image_clean_password"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{() -> viewModel.checkImageCleanPassword()}"
+            android:padding="2dp"
+            android:src="@drawable/password_clear"
+            app:layout_constraintBottom_toBottomOf="@+id/checkPassword"
+            app:layout_constraintEnd_toStartOf="@+id/checkPassword"
+            app:layout_constraintTop_toTopOf="@+id/checkPassword"
+            binding:visibility="@{viewModel.isShowImgCleanPwd}"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/viewPassword"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="13dp"
+            android:background="@color/view_bg240"
+            app:layout_constraintEnd_toEndOf="@+id/editPassword"
+            app:layout_constraintStart_toStartOf="@+id/imagePassword"
+            app:layout_constraintTop_toBottomOf="@+id/imagePassword"
+            binding:visibility="@{viewModel.isShowViewPassword}" />
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="33dp"
+            android:onClick="@{() -> clickProxy.buttonLoginClick()}"
+            android:text="@{viewModel.buttonLoginText}"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/editPhone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewPassword"
+            binding:setBackground="@{viewModel.buttonLoginBackground}" />
+
+        <TextView
+            android:id="@+id/textLoginMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="@{() -> viewModel.checkTextLoginMode()}"
+            android:text="@{viewModel.textLoginModeText}"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@+id/buttonLogin"
+            app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/text_now_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/now_register"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
+            app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="25dp"
+            android:background="@color/view_bg"
+            app:layout_constraintBottom_toBottomOf="@+id/image_qq"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_qq"
+            app:layout_constraintTop_toTopOf="@+id/image_qq" />
+
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="32dp"
+            android:background="@color/view_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/image_wei_xin"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_wei_xin"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="12dp"
+            android:onClick="@{() -> clickProxy.testClick()}"
+            android:src="@drawable/wechat"
+            app:layout_constraintBottom_toBottomOf="@+id/view4"
+            app:layout_constraintEnd_toStartOf="@+id/image_qq"
+            app:layout_constraintStart_toEndOf="@+id/view4"
+            app:layout_constraintTop_toTopOf="@+id/view4"
+            tools:ignore="MissingConstraints" />
+
+
+        <ImageView
+            android:id="@+id/image_qq"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/qq"
+            app:layout_constraintBottom_toBottomOf="@+id/image_wei_xin"
+            app:layout_constraintEnd_toStartOf="@+id/view3"
+            app:layout_constraintStart_toEndOf="@+id/image_wei_xin"
+            app:layout_constraintTop_toTopOf="@+id/image_wei_xin"
+            tools:ignore="MissingConstraints" />
+
+
+        <TextView
+            android:id="@+id/textForgetPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/forget_password"
+            android:textColor="@color/view_lightgray"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@+id/editPassword"
+            app:layout_constraintTop_toBottomOf="@+id/viewPassword"
+            binding:visibility="@{viewModel.isShowTextForgetPassword}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

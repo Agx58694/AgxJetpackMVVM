@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name" translatable="false">JetpackMvvm</string>
+
+    <string name="service_error" translatable="false">服务繁忙,请稍后再试</string>
+    <string name="not_found" translatable="false">请求的资源不存在</string>
+    <string name="timeout" translatable="false">请求超时</string>
+    <string name="unexpected_error" translatable="false">未知错误</string>
+    <string name="not_login" translatable="false">未登录</string>
+    <string name="network_wrong" translatable="false">网络有问题</string>
+    <string name="service_forbidden" translatable="false">服务不可用</string>
+    <string name="json_error" translatable="false">服务繁忙,请稍后再试（jsonError）</string>
+    <string name="no_return" translatable="false">服务繁忙,请稍后再试（no_return）</string>
+
+    <string name="title" translatable="false">标题</string>
+    <string name="get_code" translatable="false">获取验证码</string>
+    <string name="input_phone" translatable="false">请输入正确的手机号</string>
+    <string name="input_code" translatable="false">请输入验证码</string>
+    <string name="input_password" translatable="false">请输入8到14位密码</string>
+    <string name="quick_login" translatable="false">验证码登录</string>
+    <string name="register" translatable="false">立即注册</string>
+    <string name="now_register" translatable="false">立即注册</string>
+    <string name="third_login" translatable="false">第三方快速登录</string>
+    <string name="password_login" translatable="false">密码登录</string>
+    <string name="login" translatable="false">登录</string>
+    <string name="forget_password" translatable="false">忘记密码</string>
+
+</resources>

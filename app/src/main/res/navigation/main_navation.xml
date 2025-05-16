@@ -1,0 +1,84 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_navation"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.agx.jetpackmvvmtest.ui.fragment.main.MainFragment"
+        android:label="MainFragment">
+        <action
+            android:id="@+id/action_mainFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainFragment_to_dbFragment"
+            app:destination="@id/dbFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainFragment_to_stateFragment"
+            app:destination="@id/stateFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainFragment_to_sharedElementTransitionAFragment"
+            app:destination="@id/sharedElementTransitionAFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.agx.jetpackmvvmtest.ui.fragment.home.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.agx.jetpackmvvmtest.ui.fragment.login.LoginFragment"
+        android:label="LoginFragment">
+        <action
+            android:id="@+id/action_loginFragment_to_dbFragment"
+            app:destination="@id/dbFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/dbFragment"
+        android:name="com.agx.jetpackmvvmtest.ui.fragment.db.DbFragment"
+        android:label="DbFragment" />
+    <fragment
+        android:id="@+id/stateFragment"
+        android:name="com.agx.jetpackmvvmtest.ui.fragment.state.StateFragment"
+        android:label="StateFragment" />
+    <fragment
+        android:id="@+id/sharedElementTransitionAFragment"
+        android:name="com.agx.jetpackmvvmtest.ui.fragment.shared.SharedElementTransitionAFragment"
+        android:label="SharedElementTransitionAFragment">
+        <action
+            android:id="@+id/action_sharedElementTransitionAFragment_to_sharedElementTransitionBFragment"
+            app:destination="@id/sharedElementTransitionBFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sharedElementTransitionBFragment"
+        android:name="com.agx.jetpackmvvmtest.ui.fragment.shared.SharedElementTransitionBFragment"
+        android:label="SharedElementTransitionBFragment">
+        <action
+            android:id="@+id/action_sharedElementTransitionBFragment_to_sharedElementTransitionAFragment2"
+            app:destination="@id/sharedElementTransitionAFragment"
+            app:popUpTo="@id/sharedElementTransitionAFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

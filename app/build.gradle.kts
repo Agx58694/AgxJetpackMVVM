@@ -58,8 +58,6 @@ dependencies {
     implementation(libs.glide)
     //屏幕适配
     implementation(libs.autosize)
-    //util
-    implementation(libs.utilcodex)
     //https://github.com/li-xiaojun/XPopup
     implementation(libs.xpopup)
     //https://github.com/airbnb/lottie-android

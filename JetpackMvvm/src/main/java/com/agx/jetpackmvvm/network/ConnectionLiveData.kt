@@ -16,6 +16,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 
+@Suppress("DEPRECATION")
 @SuppressLint("MissingPermission")
 class ConnectionLiveData(val context: Context) : LiveData<Boolean>() {
     private var connectivityManager: ConnectivityManager =

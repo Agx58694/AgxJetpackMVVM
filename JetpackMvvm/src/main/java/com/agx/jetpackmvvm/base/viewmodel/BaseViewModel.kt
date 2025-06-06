@@ -159,6 +159,8 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
                     if (throwable is HttpException) {
                         if (throwable.code() == 408) {
                             layoutDataChange.layoutDataTimeout.tryEmit(Unit)
+                        } else {
+                            layoutDataChange.layoutDataError.tryEmit(error)
                         }
                     } else if (throwable is TimeoutException || throwable is TimeoutCancellationException) {
                         layoutDataChange.layoutDataTimeout.tryEmit(Unit)
